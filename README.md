@@ -8,10 +8,5 @@ More likely it'll stay here as a relic of afternoons i should've spent playing w
 
 ## Project/Tech Deets
 
-Built with React Native
-Redux
-Jest
-json-server
-Heroku
-Android Studio
-Visual Studio
+Built with React Native | Redux | Jest | json-server | Heroku | Android Studio | Visual Studio
+
