@@ -1,4 +1,4 @@
-## Table of Contents
+## ThatDadsApp
 
 That Dads App is an educational project developed by Adrian Thompson, creator of such incredible apps as...
 
