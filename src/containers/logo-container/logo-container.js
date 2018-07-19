@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Keyboard, Text, View } from 'react-native';
+import { StyleSheet, Keyboard, Text, View, Platform } from 'react-native';
 import { colorScheme } from '../../utils/colorscheme';
 
 export default class LogoContainer extends React.Component {
@@ -60,7 +60,18 @@ const styles = StyleSheet.create({
     },
     logo: {
         fontSize: 50,
-        fontFamily: 'sans-serif'
+        ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter',
+                color: 'black',
+                fontSize: 35,
+            },
+            android: {
+                fontFamily: 'serif',
+                color: 'black',
+                fontSize: 45,
+            }
+        })
     }
 
 });

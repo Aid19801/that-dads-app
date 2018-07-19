@@ -1,10 +1,10 @@
 import React from 'react';
-import { TextInput, StyleSheet, Button, Animated, Keyboard, View, ActivityIndicator } from 'react-native';
+import { TextInput, StyleSheet, Button, View , Platform} from 'react-native';
 import { Text } from 'react-native';
 import { LogoContainer } from '../index';
 import { colorScheme } from '../../utils/colorscheme';
 
-import { DATA_REQUESTED } from '../../actions';
+import { SUBMIT_USER } from '../../actions';
 
 import { connect } from 'react-redux';
 
@@ -16,72 +16,39 @@ class RegistrationPage extends React.Component {
             email: '',
             userName: '',
             password: '',
+            userUpdated: false,
         };
-    }
-
-    componentDidMount() {
-        this.props.getData();
-    }
-
-    async doData() {
-        
-        const randomNumber = Math.floor(Math.random() * 100000 + 1);
-        const { email, userName, password } = this.state;
-
-        await fetch('https://dads-logins.herokuapp.com/users', {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: `${userName}_${randomNumber}`,
-                email,
-                userName,
-                password,
-
-            }),
-            method: 'POST',
-        }).then((res) => {
-            console.log('response from POSTing: ', res);
-        })
     }
     
     render() {
-        let { data } = this.props;
-        if (!data) {
-            return (
-                <View style={styles.loadingContainer}>
-                   <Text>Loading...</Text>
-                </View>
-            )
-        }
-        
+        const { email, userName, password, userUpdated } = this.state;
 
-    return (
-        <View style={styles.container}>
-            <LogoContainer />
+        return (
+            <View style={styles.container}>
+                <LogoContainer />
+                { userUpdated && <Text>Registered!</Text> }
+                <TextInput
+                    placeholder="email"
+                    style={styles.textInput}
+                    onChangeText={(e) => this.setState({ email: e })}
+                />
+                <TextInput
+                    placeholder="username"
+                    style={styles.textInput}
+                    onChangeText={(e) => this.setState({ userName: e })}
+                />
+                <TextInput
+                    placeholder="password"
+                    style={styles.textInput}
+                    onChangeText={(e) => this.setState({ password: e })}
+                />
 
-            <TextInput
-                placeholder="email"
-                style={styles.textInput}
-                onChangeText={(e) => this.setState({ email: e })}
-            />
-            <TextInput
-                placeholder="username"
-                style={styles.textInput}
-                onChangeText={(e) => this.setState({ userName: e })}
-            />
-            <TextInput
-                placeholder="password"
-                style={styles.textInput}
-                onChangeText={(e) => this.setState({ password: e })}
-            />
-
-            <Button title='submit' onPress={() => {
-                this.doData() // should this be a redux action via props?
-            }} />
-        </View>
-    );
+                <Button title='submit' onPress={() => {
+                    this.setState({ userUpdated: true })
+                    this.props.registerUser(email, userName, password) // should this be a redux action via props?
+                }} />
+            </View>
+        );
     }
     
 };
@@ -89,14 +56,14 @@ class RegistrationPage extends React.Component {
 
 const mapStateToProps = (state, props) => {
     return {
-        loading: state.dataReducer.loading,
-        data: state.dataReducer.data.users
+        loading: state.submitUserReducer.loading,
+        data: state.submitUserReducer.data.users
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        getData: () => dispatch({ type: DATA_REQUESTED })
+        registerUser: (email, userName, password) => dispatch({ type: SUBMIT_USER, email, userName, password })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
@@ -111,6 +78,7 @@ const styles = StyleSheet.create({
     },
     loadingContainer: {
         paddingTop: 100,
+        paddingLeft: 130,
     },
     container: {
         alignItems: 'center',
@@ -124,6 +92,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: 'black',
         fontSize: 30,
-        // textDecoration: 'none',
     }
 });

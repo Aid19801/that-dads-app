@@ -1,29 +1,38 @@
 
 import { combineReducers } from 'redux';
-import { DATA_REQUESTED, DATA_RECEIVED, DATA_FAILED } from '../actions/';
+import { SUBMIT_USER, SUBMIT_USER_FAIL, SUBMIT_USER_OK } from '../actions/';
 
-let initialState = { data: [], loading: false, error: false };
+let initialState = { 
+    data: [], 
+    loading: false, 
+    error: false,
+    email: '',
+    password: '',
+    userName: '',
+};
 
-const dataReducer = (state = initialState, action) => {
+const submitUserReducer = (state = initialState, action) => {
     switch(action.type) {
-        case DATA_REQUESTED:
+        case SUBMIT_USER:
             return {
                 ...state,
                 loading: true,
+                userName: action.userName,
+                password: action.password,
+                email: action.email,
             }
             break;
-        case DATA_RECEIVED:
+        case SUBMIT_USER_OK:
             return {
                 ...state,
-                data: action.data,
                 loading: false,
+                data: action.data,
             }
             break;
-        case DATA_FAILED:
+        case SUBMIT_USER_FAIL:
             return {
                 ...state,
                 error: action.error,
-                loading: false,
             }
             break;
 
@@ -33,7 +42,7 @@ const dataReducer = (state = initialState, action) => {
 }
 
 const rootReducer = combineReducers({
-    dataReducer
+    submitUserReducer
 });
 
 export default rootReducer;
