@@ -26,7 +26,6 @@ const submitUserReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                data: action.data,
             }
             break;
         case SUBMIT_USER_FAIL:

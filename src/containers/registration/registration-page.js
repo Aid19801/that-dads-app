@@ -17,36 +17,61 @@ class RegistrationPage extends React.Component {
             userName: '',
             password: '',
             userUpdated: false,
+            pageOne: true,
+            pageTwo: false,
+
         };
     }
     
     render() {
-        const { email, userName, password, userUpdated } = this.state;
+        const { email, userName, password, userUpdated, pageOne, pageTwo } = this.state;
 
         return (
             <View style={styles.container}>
                 <LogoContainer />
-                { userUpdated && <Text>Registered!</Text> }
-                <TextInput
-                    placeholder="email"
-                    style={styles.textInput}
-                    onChangeText={(e) => this.setState({ email: e })}
-                />
-                <TextInput
-                    placeholder="username"
-                    style={styles.textInput}
-                    onChangeText={(e) => this.setState({ userName: e })}
-                />
-                <TextInput
-                    placeholder="password"
-                    style={styles.textInput}
-                    onChangeText={(e) => this.setState({ password: e })}
-                />
 
-                <Button title='submit' onPress={() => {
-                    this.setState({ userUpdated: true })
-                    this.props.registerUser(email, userName, password) // should this be a redux action via props?
-                }} />
+
+                { pageOne && <View>
+
+                    <TextInput
+                        placeholder="email"
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ email: e })}
+                    />
+                    <TextInput
+                        placeholder="username"
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ userName: e })}
+                    />
+                    <TextInput
+                        placeholder="password"
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ password: e })}
+                    />
+
+                    <Button title='Next' onPress={() => {
+                        this.setState({ pageOne: false, pageTwo: true })
+                        // this.props.registerUser(email, userName, password) // should this be a redux action via props?
+                    }} />
+
+                </View> }
+
+
+                { pageTwo && <View>
+
+                    <TextInput
+                        placeholder="photo THING"
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ email: e })}
+                    />
+
+                    <Button title='Submit' onPress={() => {
+                        this.setState({ userUpdated: true, pageOne: false, pageOne: true })
+                        this.props.registerUser(email, userName, password) // should this be a redux action via props?
+                    }} />
+
+                </View> }
+                
             </View>
         );
     }
