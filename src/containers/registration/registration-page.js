@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, StyleSheet, Button, View , Platform} from 'react-native';
+import { TextInput, StyleSheet, Button, View , Image, Platform} from 'react-native';
 import { Text } from 'react-native';
 import { LogoContainer } from '../index';
 import { colorScheme } from '../../utils/colorscheme';
@@ -59,15 +59,14 @@ class RegistrationPage extends React.Component {
 
                 { pageTwo && <View>
 
-                    <TextInput
-                        placeholder="photo THING"
-                        style={styles.textInput}
-                        onChangeText={(e) => this.setState({ email: e })}
-                    />
+                    <Text>Your Photo</Text>
+                    <View style={styles.photoContainer}>
+                        <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/containers/registration/placeholder.png')} />
+                    </View>
 
                     <Button title='Submit' onPress={() => {
-                        this.setState({ userUpdated: true, pageOne: false, pageOne: true })
-                        this.props.registerUser(email, userName, password) // should this be a redux action via props?
+                        this.setState({ userUpdated: true, pageOne: false, pageOne: true });    
+                        this.props.registerUser(email, userName, password);
                     }} />
 
                 </View> }
@@ -107,6 +106,21 @@ const styles = StyleSheet.create({
     },
     container: {
         alignItems: 'center',
+    },
+    photoContainer: {
+        borderWidth: 2,
+        width: 200,
+        height: 200,
+        marginBottom: 20,
+        marginTop: 20,
+    },
+    image: {
+        borderWidth: 1,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'orange',
+        position: 'relative',
+        margin: 0,
     },
     textInput: {
         backgroundColor: 'lightgrey',
