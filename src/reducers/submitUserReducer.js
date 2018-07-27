@@ -1,4 +1,3 @@
-
 import { SUBMIT_USER, SUBMIT_USER_FAIL, SUBMIT_USER_OK } from '../actions/';
 
 let initialSubmitUserState = {
@@ -8,6 +7,7 @@ let initialSubmitUserState = {
     email: '',
     password: '',
     userName: '',
+    userId: ''
 };
 
 export const submitUserReducer = (state = initialSubmitUserState, action) => {
@@ -22,9 +22,11 @@ export const submitUserReducer = (state = initialSubmitUserState, action) => {
             }
             break;
         case SUBMIT_USER_OK:
+        console.log('ACTION.data userId: ', action.data);
             return {
                 ...state,
                 loading: false,
+                userId: action.data
             }
             break;
         case SUBMIT_USER_FAIL:

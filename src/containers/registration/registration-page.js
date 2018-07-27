@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, StyleSheet, Button, View , Image, Platform} from 'react-native';
+import { AsyncStorage, TextInput, StyleSheet, Button, View , Image, Platform } from 'react-native';
 import { Text } from 'react-native';
 import { LogoContainer } from '../index';
 
@@ -24,8 +24,15 @@ class RegistrationPage extends React.Component {
     }
     
     render() {
-        const { email, userName, password, userUpdated, pageOne, pageTwo } = this.state;
-
+        const { email, userName, password, pageOne, pageTwo, pageThree } = this.state;
+        
+        if (pageThree) {
+            
+            AsyncStorage.getItem('userId', (err, result) => {
+                console.log('err: ', err);
+                console.log('result', result);
+            });
+        }
         return (
             <View style={styles.container}>
                 <LogoContainer />
@@ -64,11 +71,18 @@ class RegistrationPage extends React.Component {
                     </View>
 
                     <Button title='Submit' onPress={() => {
-                        this.setState({ userUpdated: true, pageOne: false, pageOne: true });    
+                        this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
                         this.props.registerUser(email, userName, password);
                     }} />
 
                 </View> }
+
+                { pageThree && 
+                    <View>
+                        <Text style={styles.photoTitleContainerText}>Thank you for registering!</Text> 
+                        <Text>{this.props.userId}</Text>
+                    </View>
+                }
                 
             </View>
         );
@@ -78,9 +92,11 @@ class RegistrationPage extends React.Component {
 
 
 const mapStateToProps = (state, props) => {
+    const { loading, data, userId} = state.submitUserReducer;
     return {
-        loading: state.submitUserReducer.loading,
-        data: state.submitUserReducer.data.users
+        loading: loading,
+        data: data.users,
+        userId: userId,
     }
 }
 

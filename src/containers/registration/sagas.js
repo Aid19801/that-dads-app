@@ -1,5 +1,7 @@
-import { put, takeLatest, all } from 'redux-saga/effects'
+import { put, takeLatest, call } from 'redux-saga/effects'
 import { SUBMIT_USER, SUBMIT_USER_OK, SUBMIT_USER_FAIL } from '../../actions/index';
+import { AsyncStorage } from 'react-native';
+
 const url = 'https://that-dads-logins.herokuapp.com/api/users';
 
 
@@ -22,18 +24,20 @@ export function* workerRegisterUser(actionObject) {
                 userName,
                 password,
             }),
-        }).then((res) => {
-            if (res.status === 200) {
-                return res.status;
-            }
-            return res;
-        }).catch((err) => {
-            return err;
-        })
+        }).then((res) => res.json())
+            .then(json => {
+                return json;
+            })
+            .catch((err) => {
+                console.log('user-registration error: ', err);
+                return err;
+            })
+        yield call(AsyncStorage.setItem, 'userId', dataBack.userId);
+        yield put({ type: SUBMIT_USER_OK, data: dataBack.userId })
 
-        yield put({ type: SUBMIT_USER_OK, data: dataBack })
     } catch (error) {
         console.log('error: ', error);
         yield put({ type: SUBMIT_USER_FAIL, error });
     }
 }
+
