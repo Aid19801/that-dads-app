@@ -24,7 +24,6 @@ export function* workerRegisterUser(actionObject) {
             }),
         }).then((res) => {
             if (res.status === 200) {
-                console.log('33333333: ', res);
                 return res.status;
             }
             return res;

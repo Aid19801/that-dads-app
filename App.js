@@ -8,7 +8,7 @@ import store from './src/store';
 // RootStack
 const RootStack = createStackNavigator(
   {
-    Landing: RegistrationPage,
+    Landing: LandingPage,
     Registration: RegistrationPage,
     Login: LoginPage,
   },

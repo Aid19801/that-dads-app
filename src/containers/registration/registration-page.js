@@ -2,7 +2,6 @@ import React from 'react';
 import { TextInput, StyleSheet, Button, View , Image, Platform} from 'react-native';
 import { Text } from 'react-native';
 import { LogoContainer } from '../index';
-import { colorScheme } from '../../utils/colorscheme';
 
 import { SUBMIT_USER } from '../../actions';
 
@@ -19,6 +18,7 @@ class RegistrationPage extends React.Component {
             userUpdated: false,
             pageOne: true,
             pageTwo: false,
+            pageThree: false,
 
         };
     }
@@ -51,15 +51,14 @@ class RegistrationPage extends React.Component {
 
                     <Button title='Next' onPress={() => {
                         this.setState({ pageOne: false, pageTwo: true })
-                        // this.props.registerUser(email, userName, password) // should this be a redux action via props?
                     }} />
 
                 </View> }
 
 
-                { pageTwo && <View>
+                { pageTwo && <View style={styles.photoTitleContainer}>
 
-                    <Text>Your Photo</Text>
+                    <Text style={styles.photoTitleContainerText}>Your Photo</Text>
                     <View style={styles.photoContainer}>
                         <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/containers/registration/placeholder.png')} />
                     </View>
@@ -85,7 +84,7 @@ const mapStateToProps = (state, props) => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         registerUser: (email, userName, password) => dispatch({ type: SUBMIT_USER, email, userName, password })
     }
@@ -107,6 +106,27 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
     },
+    photoTitleContainer: {
+        alignItems: 'center',
+        marginTop: 30,
+    },
+
+    photoTitleContainerText: {
+        ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter',
+                color: 'black',
+                fontSize: 15,
+            },
+            android: {
+                fontFamily: 'serif',
+                color: 'black',
+                fontSize: 15,
+            }
+        })
+    },
+
+
     photoContainer: {
         borderWidth: 2,
         width: 200,
@@ -114,6 +134,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginTop: 20,
     },
+
     image: {
         borderWidth: 1,
         width: '100%',
@@ -121,6 +142,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         position: 'relative',
         margin: 0,
+
     },
     textInput: {
         backgroundColor: 'lightgrey',
