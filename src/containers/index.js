@@ -3,7 +3,7 @@ import LogoContainer from './logo-container/logo-container';
 import EmojiContainer from './emoji-container/emoji-container';
 
 import RegistrationPage from './registration/registration-page';
-import LoginPage from './login/login-page';
+import LoginPage from './login-page/login-page';
 
 
 export {
