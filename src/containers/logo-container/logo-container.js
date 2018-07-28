@@ -30,7 +30,10 @@ export default class LogoContainer extends React.Component {
     keyboardIsShowingHideLogo = () => {
         if (this.state.logoIsShowing === false) {
             return {
-                display: 'none'
+                paddingTop: 1,
+                paddingBottom: 1,
+                paddingRight: 5,
+                paddingLeft: 5,
             }
         } else {
             return styles.container;

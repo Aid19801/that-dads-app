@@ -5,7 +5,7 @@ export default class EmojiContainer extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/containers/emoji-container/img1.png')} />
+                <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/containers/emoji-container/img2.png')} />
             </View>
         );
     }
