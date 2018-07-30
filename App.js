@@ -1,6 +1,5 @@
 import React from 'react';
-import LandingPage from './src/app-container';
-import { RegistrationPage, LoginPage } from './src/containers';
+import { RegistrationPage, LoginPage, LandingPage } from './src/containers';
 import { createStackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from './src/store';

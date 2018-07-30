@@ -1,31 +1,36 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { TextInput, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
-const Input = () => {
+const DadsInput = (props) => {
     return (
         <View style={styles.container}>
-            <FormLabel>userName</FormLabel>
-            <FormInput />
-            <FormLabel>email</FormLabel>
-            <FormInput />
-            <FormLabel>password</FormLabel>
-            <FormInput />
-            <FormLabel>my tagline/motto...</FormLabel>
-            <FormInput />
-            <FormLabel>about me</FormLabel>
-            <FormInput />
+            <TextInput 
+                placeholder={props.placeholder}
+                style={styles.textInput}
+                onChangeText={(e) => this.setState({ email: e })}
+            />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-    },
-});
+        borderWidth: 2,
+        borderColor: 'red',
+    }
+})
 
-export default Input;
+const mapDispatchToProps = (dispatch, props) => ({
+    fireAThing: () => dispatch({ type: `TAKE_FROM_INPUT`, payload: 'input payload!'}) // <--how do we take whats in the input and pass to payload?
+})
 
-// state required:
-// isTyping
-// isLoggedIn
+const mapStateToProps = (state) => ({
+    myProp: '', // <--how do we take whats in the input and pass to payload?
+})
+export default connect(mapStateToProps, mapDispatchToProps)(DadsInput);
+
+// fire an action that takes 'name of input' && value entered
+// reducer hears it and stores it in state
+// container has MSTP and puts it in HOC state.
+// when you press submit it takes *THAT* and fires the saga off.

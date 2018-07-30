@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-export default class EmojiContainer extends React.Component {
+export default class Emoji extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/containers/emoji-container/img2.png')} />
+                <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/components/emoji/img2.png')} />
             </View>
         );
     }

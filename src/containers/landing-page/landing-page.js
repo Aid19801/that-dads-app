@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 // import { LogoContainer, EmojiContainer, ButtonContainer } from '../containers';
-import { LogoContainer } from '../logo-container/logo-container';
-import { EmojiContainer } from '../emoji-container/emoji-container';
-import { ButtonContainer } from '../button-container/button-container';
+import { Logo, Emoji, Button } from '../../components/index';
+// import { ButtonContainer } from '../button-container/button-container';
 
 import { APP_LOADED, CHECK_LOGIN_STATUS } from '../../reducers/constants';
 
@@ -30,9 +29,9 @@ class LandingPage extends Component {
         }
         return (
             <View style={styles.container}>
-                <LogoContainer />
-                <EmojiContainer />
-                <ButtonContainer navigation={this.props.navigation} />
+                <Logo />
+                <Emoji />
+                <Button navigation={this.props.navigation} />
             </View>
         );
     }

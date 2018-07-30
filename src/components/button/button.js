@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { PushableButton } from '../../components';
+import { PushableButton } from '../index';
 import { colorScheme } from '../../utils/colorscheme';
 
 export default class ButtonContainer extends React.Component {

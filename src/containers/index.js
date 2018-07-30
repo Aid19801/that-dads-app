@@ -1,17 +1,11 @@
-import ButtonContainer from './button-container/button-container';
-import LogoContainer from './logo-container/logo-container';
-import EmojiContainer from './emoji-container/emoji-container';
-
 import RegistrationPage from './registration/registration-page';
 import LoginPage from './login-page/login-page';
+import LandingPage from './landing-page/landing-page';
 
 
 export {
-    LogoContainer,
-    EmojiContainer,
-    ButtonContainer,
-    
     RegistrationPage,
     LoginPage,
+    LandingPage,
 }
 

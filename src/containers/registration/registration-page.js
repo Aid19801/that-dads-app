@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { AsyncStorage, TextInput, StyleSheet, Button, View , Image, Platform } from 'react-native';
 import { Text } from 'react-native';
-import { LogoContainer } from '../index';
+import { DadsInput, Logo } from '../../components/index';
+// import { LogoContainer } from '../index';
 
 import { SUBMIT_USER } from '../../actions';
 
 import { connect } from 'react-redux';
 
-class RegistrationPage extends React.Component {
+class RegistrationPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,30 +17,22 @@ class RegistrationPage extends React.Component {
             userName: '',
             password: '',
             userUpdated: false,
-            pageOne: true,
-            pageTwo: false,
-            pageThree: false,
-
         };
     }
     
     render() {
-        const { email, userName, password, pageOne, pageTwo, pageThree } = this.state;
-        
-        if (pageThree) {
+        const { email, userName, password } = this.state;
             
             AsyncStorage.getItem('userId', (err, result) => {
                 console.log('err: ', err);
                 console.log('result', result);
             });
-        }
+
         return (
             <View style={styles.container}>
-                <LogoContainer />
-
-
-                { pageOne && <View>
-
+                <Logo />
+                
+                <View>
                     <TextInput
                         placeholder="email"
                         style={styles.textInput}
@@ -60,35 +53,11 @@ class RegistrationPage extends React.Component {
                         this.setState({ pageOne: false, pageTwo: true })
                     }} />
 
-                </View> }
-
-
-                { pageTwo && <View style={styles.photoTitleContainer}>
-
-                    <Text style={styles.photoTitleContainerText}>Your Photo</Text>
-                    <View style={styles.photoContainer}>
-                        <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/containers/registration/placeholder.png')} />
-                    </View>
-
-                    <Button title='Submit' onPress={() => {
-                        this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
-                        this.props.registerUser(email, userName, password);
-                    }} />
-
-                </View> }
-
-                { pageThree && 
-                    <View>
-                        <Text style={styles.photoTitleContainerText}>Thank you for registering!</Text> 
-                        <Text>{this.props.userId}</Text>
-                    </View>
-                }
-                
+                </View>
             </View>
-        );
+        )
     }
-    
-};
+}
 
 
 const mapStateToProps = (state, props) => {
@@ -105,8 +74,8 @@ const mapDispatchToProps = (dispatch) => {
         registerUser: (email, userName, password) => dispatch({ type: SUBMIT_USER, email, userName, password })
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
 
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
 
 const styles = StyleSheet.create({
     activityIndicatorContainer: {
@@ -171,3 +140,4 @@ const styles = StyleSheet.create({
         fontSize: 30,
     }
 });
+
