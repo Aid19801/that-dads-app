@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { AsyncStorage, TextInput, StyleSheet, Button, View , Image, Platform } from 'react-native';
-import { Text } from 'react-native';
-import { DadsInput, Logo } from '../../components/index';
-// import { LogoContainer } from '../index';
+import { AsyncStorage, TextInput, StyleSheet, Button, View, Image, Platform, Text } from 'react-native';
+import { Logo } from '../../components/index';
 
 import { SUBMIT_USER } from '../../actions';
 
@@ -16,44 +14,76 @@ class RegistrationPage extends Component {
             email: '',
             userName: '',
             password: '',
-            userUpdated: false,
+            pageOne: true,
+            pageTwo: false,
+            pageThree: false,
         };
     }
+
+    renderPageOne = () => {
+        const { pageOne } = this.state;
+        return pageOne && <View style={styles.pageBox}>
+            <TextInput
+                placeholder="email"
+                style={styles.textInput}
+                onChangeText={(e) => this.setState({ email: e })}
+            />
+            <TextInput
+                placeholder="username"
+                style={styles.textInput}
+                onChangeText={(e) => this.setState({ userName: e })}
+            />
+            <TextInput
+                placeholder="password"
+                style={styles.textInput}
+                onChangeText={(e) => this.setState({ password: e })}
+            />
+
+            <Button title='Next' onPress={() => {
+                this.setState({ pageOne: false, pageTwo: true, pageThree: false })
+            }} />
+        </View>
+    }
+
+    renderPageTwo = () => {
+        const { pageTwo, userName, email, password } = this.state;
+        const { registerUser } = this.props;
+        return pageTwo && 
+            <View style={styles.pageBox}>
+                <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/components/emoji/img1.png')} />
+            <Button title='Submit' onPress={() => {
+                registerUser(email, userName, password);
+                this.setState({ pageOne: false, pageTwo: false, pageThree: true });
+            }} />
+        </View>
+    }
     
+    renderPageThree = () => {
+        const { pageThree } = this.state;
+        const { navigate } = this.props.navigation;
+
+        return pageThree && 
+            <View style={styles.pageBox}>
+                <Text>Thank You For Registering!</Text>
+            <Button title='Go To App' onPress={() => navigate('Login')} />
+        </View>
+    }
+
+
     render() {
-        const { email, userName, password } = this.state;
-            
-            AsyncStorage.getItem('userId', (err, result) => {
-                console.log('err: ', err);
-                console.log('result', result);
-            });
+
+        AsyncStorage.getItem('userId', (err, result) => {
+            // console.log('userId error: ', err);
+            // console.log('userId retrived: ', result);
+            return;
+        });
 
         return (
             <View style={styles.container}>
                 <Logo />
-                
-                <View>
-                    <TextInput
-                        placeholder="email"
-                        style={styles.textInput}
-                        onChangeText={(e) => this.setState({ email: e })}
-                    />
-                    <TextInput
-                        placeholder="username"
-                        style={styles.textInput}
-                        onChangeText={(e) => this.setState({ userName: e })}
-                    />
-                    <TextInput
-                        placeholder="password"
-                        style={styles.textInput}
-                        onChangeText={(e) => this.setState({ password: e })}
-                    />
-
-                    <Button title='Next' onPress={() => {
-                        this.setState({ pageOne: false, pageTwo: true })
-                    }} />
-
-                </View>
+                {this.renderPageOne()}
+                {this.renderPageTwo()}
+                {this.renderPageThree()}
             </View>
         )
     }
@@ -61,10 +91,9 @@ class RegistrationPage extends Component {
 
 
 const mapStateToProps = (state, props) => {
-    const { loading, data, userId} = state.submitUserReducer;
+    const { loading, userId} = state.submitUserReducer;
     return {
         loading: loading,
-        data: data.users,
         userId: userId,
     }
 }
@@ -78,18 +107,24 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
 
 const styles = StyleSheet.create({
-    activityIndicatorContainer: {
-        backgroundColor: "#fff",
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
     loadingContainer: {
         paddingTop: 100,
         paddingLeft: 130,
     },
     container: {
         alignItems: 'center',
+    },
+    pageBox: {
+        alignItems: 'center',
+        width: 300,
+        height: 300,
+        borderWidth: 2,
+    },
+    textInput: {
+        width: 290,
+        height: 25,
+        borderWidth: 2,
+        margin: 2,
     },
     photoTitleContainer: {
         alignItems: 'center',
@@ -122,22 +157,12 @@ const styles = StyleSheet.create({
 
     image: {
         borderWidth: 1,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'orange',
+        width: '90%',
+        height: '90%',
+        backgroundColor: 'grey',
         position: 'relative',
         margin: 0,
 
     },
-    textInput: {
-        backgroundColor: 'lightgrey',
-        width: 280,
-        height: 54,
-        marginBottom: 15,
-        marginTop: 5,
-        alignItems: 'center',
-        color: 'black',
-        fontSize: 30,
-    }
 });
 

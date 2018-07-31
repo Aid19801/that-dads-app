@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 
 const DadsInput = (props) => {
@@ -8,7 +8,8 @@ const DadsInput = (props) => {
             <TextInput 
                 placeholder={props.placeholder}
                 style={styles.textInput}
-                onChangeText={(e) => this.setState({ email: e })}
+                onFocus={props.onFocus()}
+                onChangeText={props.updateThing()}
             />
         </View>
     )
@@ -16,13 +17,25 @@ const DadsInput = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 2,
-        borderColor: 'red',
+        borderWidth: 1,
+        alignItems: 'center',
+    },
+    textInput: {
+        backgroundColor: 'lightgrey',
+        width: 280,
+        marginBottom: 5,
+        marginTop: 5,
+        alignItems: 'center',
+        color: 'black',
+        fontSize: 30,
     }
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fireAThing: () => dispatch({ type: `TAKE_FROM_INPUT`, payload: 'input payload!'}) // <--how do we take whats in the input and pass to payload?
+    updateThing: (e) => {
+        console.log('props: ', props.placeholder);
+        dispatch({ type: `TAKE_FROM_INPUT`, payload: e })
+    }
 })
 
 const mapStateToProps = (state) => ({
