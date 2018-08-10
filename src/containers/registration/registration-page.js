@@ -20,29 +20,37 @@ class RegistrationPage extends Component {
         };
     }
 
+    amILoggedIn = () => {
+        if (this.props.userId) {
+            console.log('logged in: ', this.props.userId);
+            this.props.navigation.navigate('Login');
+        }
+        return;
+    }
+
     renderPageOne = () => {
         const { pageOne } = this.state;
-        return pageOne && <View style={styles.pageBox}>
-            <TextInput
-                placeholder="email"
-                style={styles.textInput}
-                onChangeText={(e) => this.setState({ email: e })}
-            />
-            <TextInput
-                placeholder="username"
-                style={styles.textInput}
-                onChangeText={(e) => this.setState({ userName: e })}
-            />
-            <TextInput
-                placeholder="password"
-                style={styles.textInput}
-                onChangeText={(e) => this.setState({ password: e })}
-            />
+            return pageOne && <View style={styles.pageBox}>
+                <TextInput
+                    placeholder="email"
+                    style={styles.textInput}
+                    onChangeText={(e) => this.setState({ email: e })}
+                />
+                <TextInput
+                    placeholder="username"
+                    style={styles.textInput}
+                    onChangeText={(e) => this.setState({ userName: e })}
+                />
+                <TextInput
+                    placeholder="password"
+                    style={styles.textInput}
+                    onChangeText={(e) => this.setState({ password: e })}
+                />
 
-            <Button title='Next' onPress={() => {
-                this.setState({ pageOne: false, pageTwo: true, pageThree: false })
-            }} />
-        </View>
+                <Button title='Next' onPress={() => {
+                    this.setState({ pageOne: false, pageTwo: true, pageThree: false })
+                }} />
+            </View>
     }
 
     renderPageTwo = () => {
@@ -69,21 +77,13 @@ class RegistrationPage extends Component {
         </View>
     }
 
-
     render() {
-
-        AsyncStorage.getItem('userId', (err, result) => {
-            // console.log('userId error: ', err);
-            // console.log('userId retrived: ', result);
-            return;
-        });
+        this.amILoggedIn();
 
         return (
             <View style={styles.container}>
                 <Logo />
                 {this.renderPageOne()}
-                {this.renderPageTwo()}
-                {this.renderPageThree()}
             </View>
         )
     }
@@ -91,10 +91,11 @@ class RegistrationPage extends Component {
 
 
 const mapStateToProps = (state, props) => {
-    const { loading, userId} = state.submitUserReducer;
+    const { loading } = state.submitUserReducer;
+    const { userId } = state.loginStatusReducer;
     return {
-        loading: loading,
-        userId: userId,
+        loading,
+        userId,
     }
 }
 

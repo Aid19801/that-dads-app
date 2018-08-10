@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Logo, Emoji, Button } from '../../components/index';
 import { APP_LOADED, CHECK_LOGIN_STATUS } from '../../reducers/constants';
-
 import { connect } from 'react-redux';
 
 class LandingPage extends Component {
@@ -16,6 +15,9 @@ class LandingPage extends Component {
 
     componentDidMount() {
         this.props.updateAppState();
+        AsyncStorage.getItem('userId').then(res => {
+            console.log('response yo: ', res);
+        })
     }
 
     render() {
@@ -44,7 +46,7 @@ const mapStateToProps = (state, props) => {
     return {
         appLoading: state.appStateReducer.appLoading,
         appLoaded: state.appStateReducer.appLoaded,
-        userId: '',
+        userId: 'hard-coded-user-id-304869',
     }
 }
 

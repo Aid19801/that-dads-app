@@ -1,5 +1,5 @@
 import React from 'react';
-import { RegistrationPage, LoginPage, LandingPage } from './src/containers';
+import { RegistrationPage, LoginPage, LandingPage, RegPage } from './src/containers';
 import { createStackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from './src/store';
@@ -8,7 +8,7 @@ import store from './src/store';
 const RootStack = createStackNavigator(
   {
     Landing: LandingPage,
-    Registration: RegistrationPage,
+    Registration: RegPage,
     Login: LoginPage,
   },
   {

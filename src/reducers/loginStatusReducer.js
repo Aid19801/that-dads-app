@@ -9,7 +9,6 @@ let initialState = {
 export const loginStatusReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHECK_LOGIN_STATUS:
-        console.log('1 check login status');
             return {
                 ...state,
                 isLoggedIn: false,
@@ -17,11 +16,11 @@ export const loginStatusReducer = (state = initialState, action) => {
             break;
 
         case USER_LOGGED_IN:
-        console.log(' reducer heard: user logged in');
+        console.log('action id is: ', action.id);
             return {
                 ...state,
                 isLoggedIn: true,
-                userId: action.userId,
+                userId: action.id,
             }
             break;
 
