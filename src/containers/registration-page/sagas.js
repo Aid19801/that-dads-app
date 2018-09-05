@@ -32,7 +32,6 @@ export function* workerRegisterUser(actionObject) {
                 console.log('user-registration error: ', err);
                 return err;
             })
-        yield call(AsyncStorage.setItem, 'userId', dataBack.userId);
         yield put({ type: SUBMIT_USER_OK, data: dataBack.userId })
 
     } catch (error) {
