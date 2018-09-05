@@ -4,9 +4,8 @@ import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects'
 import reducers from './reducers/index';
 
-import { watcherRegisterUser } from './containers/registration/sagas';
+import { watcherRegisterUser } from './containers/registration-page/sagas';
 import { watcherGetLoginStatus } from './sagas';
-
 
 const sagaMiddleware = createSagaMiddleware();
 

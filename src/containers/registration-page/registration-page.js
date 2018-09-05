@@ -4,8 +4,9 @@ import { Text } from 'react-native';
 import { LogoContainer } from '../index';
 
 import { SUBMIT_USER } from '../../actions';
-
 import { connect } from 'react-redux';
+
+const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png';
 
 class RegistrationPage extends React.Component {
     constructor(props) {
@@ -19,20 +20,22 @@ class RegistrationPage extends React.Component {
             pageOne: true,
             pageTwo: false,
             pageThree: false,
-
+            shit: '',
         };
     }
+
+    saveUserId = async (user, passw) => {
+        try {
+            await AsyncStorage.setItem('userName', user);
+            await AsyncStorage.setItem('password', passw);
+        } catch (error) {
+            console.log('AsyncStorage error: ', error);
+        }
+    };
     
     render() {
         const { email, userName, password, pageOne, pageTwo, pageThree } = this.state;
-        
-        if (pageThree) {
-            
-            AsyncStorage.getItem('userId', (err, result) => {
-                console.log('err: ', err);
-                console.log('result', result);
-            });
-        }
+
         return (
             <View style={styles.container}>
                 <LogoContainer />
@@ -67,10 +70,10 @@ class RegistrationPage extends React.Component {
 
                     <Text style={styles.photoTitleContainerText}>Your Photo</Text>
                     <View style={styles.photoContainer}>
-                        <Image style={styles.image} source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/containers/registration/placeholder.png')} />
+                        <Image style={styles.image} source={require(avatar)} />
                     </View>
 
-                    <Button title='Submit' onPress={() => {
+                    <Button title='Register User' onPress={() => {
                         this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
                         this.props.registerUser(email, userName, password);
                     }} />
@@ -79,8 +82,14 @@ class RegistrationPage extends React.Component {
 
                 { pageThree && 
                     <View>
-                        <Text style={styles.photoTitleContainerText}>Thank you for registering!</Text> 
-                        <Text>{this.props.userId}</Text>
+                        <Text style={styles.photoTitleContainerText}>Thank you for registering!</Text>
+                        <Button
+                            title='Login?'
+                            onPress={() => {
+                                this.saveUserId(userName, password);
+                                this.props.navigation.navigate('Login');
+                            }}
+                        />
                     </View>
                 }
                 
@@ -141,7 +150,6 @@ const styles = StyleSheet.create({
             }
         })
     },
-
 
     photoContainer: {
         borderWidth: 2,
