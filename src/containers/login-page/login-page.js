@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, AsyncStorage, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Platform } from 'react-native';
+import { getUserId } from '../../utils/utils';
 
 export default class LoginPage extends Component {
     constructor(props) {
@@ -10,34 +11,39 @@ export default class LoginPage extends Component {
         }
     }
 
-    getUserId = async () => {
-        console.log('retrieving...');
-        try {
-            let userName = await AsyncStorage.getItem('userName') || ''
-            let password = await AsyncStorage.getItem('password') || '';
-
-            this.setState({ userName, password});
-
-        } catch (err) {
-            console.log('err: ', err);
-        }
-    }
-
-
-    componentDidMount() {
-        this.getUserId();
+    componentDidMount = async () => {
+        const { userName, password } = await getUserId();
+        console.log('userName: ', userName);
+        console.log('password: ', password);
+        this.setState({ userName, password });
     }
 
     render() {
 
-            console.log('login page / this state ', this.state);
+        console.log('LOGIN PAGE | this.state: ', this.state);
 
         return (
             <View style={styles.container}>
                 <Text>LoginPage</Text>
-                <Text>Your username is: {this.state.userName}</Text>
-                <Text>Your username is: {this.state.password}</Text>
-                <Text>LoginPage</Text>
+
+                <View>
+
+                    <TextInput
+                        placeholder="username"
+                        value={this.state.userName || ''}
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ userName: e })}
+                    />
+                    <TextInput
+                        placeholder="password"
+                        value={this.state.password || ''}
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ password: e })}
+                    />
+
+                    <Button title='Login' onPress={() => alert('login')} />
+
+                </View>
 
             </View>
         );
@@ -48,5 +54,29 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
     },
+    photoTitleContainerText: {
+        ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter',
+                color: 'black',
+                fontSize: 15,
+            },
+            android: {
+                fontFamily: 'serif',
+                color: 'black',
+                fontSize: 15,
+            }
+        })
+    },
+    textInput: {
+        backgroundColor: 'lightgrey',
+        width: 280,
+        height: 54,
+        marginBottom: 15,
+        marginTop: 5,
+        alignItems: 'center',
+        color: 'black',
+        fontSize: 30,
+    }
 });
 
