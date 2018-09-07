@@ -4,7 +4,7 @@ import EmojiContainer from './emoji-container/emoji-container';
 
 import RegistrationPage from './registration-page/registration-page';
 import LoginPage from './login-page/login-page';
-
+import HomePage from './home-page/home-page';
 
 export {
     LogoContainer,
@@ -13,5 +13,6 @@ export {
     
     RegistrationPage,
     LoginPage,
+    HomePage,
 }
 

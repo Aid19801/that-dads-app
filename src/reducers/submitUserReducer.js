@@ -7,7 +7,8 @@ let initialSubmitUserState = {
     email: '',
     password: '',
     userName: '',
-    userId: ''
+    userId: '',
+    isRegistered: false,
 };
 
 export const submitUserReducer = (state = initialSubmitUserState, action) => {
@@ -22,16 +23,19 @@ export const submitUserReducer = (state = initialSubmitUserState, action) => {
             }
             break;
         case SUBMIT_USER_OK:
-        console.log('ACTION.data userId: ', action.data);
+        console.log('submit user ok: ', action.data);
             return {
                 ...state,
                 loading: false,
-                userId: action.data
+                userId: action.data,
+                isRegistered: true,
             }
             break;
         case SUBMIT_USER_FAIL:
+            console.log('submit user fail: ', action.data);
             return {
                 ...state,
+                isRegistered: false,
                 error: action.error,
             }
             break;

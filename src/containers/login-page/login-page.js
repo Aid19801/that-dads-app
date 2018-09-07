@@ -36,6 +36,7 @@ export default class LoginPage extends Component {
                     />
                     <TextInput
                         placeholder="password"
+                        secureTextEntry={true}
                         value={this.state.password || ''}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}

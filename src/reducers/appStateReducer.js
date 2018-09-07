@@ -9,6 +9,7 @@ let initialAppState = {
 export const appStateReducer = (state = initialAppState, action) => {
     switch (action.type) {
         case APP_LOADING:
+        console.log('app loading');
             return {
                 ...state,
                 appLoading: true,
@@ -17,6 +18,7 @@ export const appStateReducer = (state = initialAppState, action) => {
         break;
         
         case APP_LOADED:
+            console.log('app loaded');
             return {
                 ...state,
                 appLoading: false,
