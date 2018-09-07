@@ -6,6 +6,8 @@ import { LogoContainer } from '../index';
 import { SUBMIT_USER } from '../../actions';
 import { connect } from 'react-redux';
 
+import { setUserId } from '../../utils/utils';
+
 const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png';
 
 class RegistrationPage extends React.Component {
@@ -20,26 +22,31 @@ class RegistrationPage extends React.Component {
             pageOne: true,
             pageTwo: false,
             pageThree: false,
-            shit: '',
         };
     }
 
-    saveUserId = async (user, passw) => {
+    userIsAlreadySignedIn = async () => {
         try {
-            await AsyncStorage.setItem('userName', user);
-            await AsyncStorage.setItem('password', passw);
+            const pw = await AsyncStorage.getItem('password');
+            if (pw !== null) {
+                console.log('pw is:: 🍆: ', pw);
+                alert('youre already signed in');
+                // this.props.navigation.navigate('Home');
+            }
         } catch (error) {
             console.log('AsyncStorage error: ', error);
         }
-    };
+    }
     
     render() {
+
         const { email, userName, password, pageOne, pageTwo, pageThree } = this.state;
+
+        this.userIsAlreadySignedIn();
 
         return (
             <View style={styles.container}>
                 <LogoContainer />
-
 
                 { pageOne && <View>
 
@@ -65,7 +72,6 @@ class RegistrationPage extends React.Component {
 
                 </View> }
 
-
                 { pageTwo && <View style={styles.photoTitleContainer}>
 
                     <Text style={styles.photoTitleContainerText}>Your Photo</Text>
@@ -86,7 +92,7 @@ class RegistrationPage extends React.Component {
                         <Button
                             title='Login?'
                             onPress={() => {
-                                this.saveUserId(userName, password);
+                                setUserId(userName, password);
                                 this.props.navigation.navigate('Login');
                             }}
                         />
