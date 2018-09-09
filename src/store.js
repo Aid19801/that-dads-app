@@ -6,6 +6,7 @@ import reducers from './reducers/index';
 
 import { watcherRegisterUser } from './containers/registration-page/sagas';
 import { watcherGetLoginStatus } from './sagas';
+import { watcherUserLoggingIn } from './containers/login-page/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,6 +16,7 @@ function* rootSaga() {
     yield all([
         watcherRegisterUser(),
         watcherGetLoginStatus(),
+        watcherUserLoggingIn(),
     ])
 }
 

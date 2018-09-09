@@ -1,5 +1,13 @@
 import { AsyncStorage } from 'react-native';
 
+const setUniqueIdentifierDB = async (uid) => {
+    try {
+        await AsyncStorage.setItem('uid', uid)
+    } catch (error) {
+        console.log('setUniqueIdentifierDB error: ', error);
+    }
+}
+
 const setUserId = async (user, passw) => {
     try {
         await AsyncStorage.setItem('userName', user);
@@ -35,6 +43,7 @@ const destroyAsyncStorage = async () => {
 
 
 export {
+    setUniqueIdentifierDB,
     getUserId,
     setUserId,
     destroyAsyncStorage,

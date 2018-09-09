@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Platform } from 'react-native';
+
+import { USER_LOGGING_IN } from '../../actions/index';
+import { connect } from 'react-redux';
+
 import { getUserId } from '../../utils/utils';
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,16 +15,19 @@ export default class LoginPage extends Component {
         }
     }
 
+    // checkLogin = async () => {
+    //     const { userName, password } = this.state;
+    //     console.log(`username: ${userName} password: ${password}`);
+    // }
+
     componentDidMount = async () => {
         const { userName, password } = await getUserId();
-        console.log('userName: ', userName);
-        console.log('password: ', password);
         this.setState({ userName, password });
     }
 
     render() {
 
-        console.log('LOGIN PAGE | this.state: ', this.state);
+        const { userName, password } = this.state;
 
         return (
             <View style={styles.container}>
@@ -42,7 +49,7 @@ export default class LoginPage extends Component {
                         onChangeText={(e) => this.setState({ password: e })}
                     />
 
-                    <Button title='Login' onPress={() => alert('login')} />
+                    <Button title='Login' onPress={() => this.props.checkLogin(userName, password)} />
 
                 </View>
 
@@ -50,6 +57,16 @@ export default class LoginPage extends Component {
         );
     }
 }
+
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        checkLogin: (userName, password) => dispatch({ type: USER_LOGGING_IN, userName, password })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoginPage);
 
 const styles = StyleSheet.create({
     container: {
