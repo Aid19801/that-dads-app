@@ -31,7 +31,7 @@ class RegistrationPage extends React.Component {
             if (pw !== null) {
                 console.log('pw is:: 🍆: ', pw);
                 alert('youre already signed in');
-                // this.props.navigation.navigate('Home');
+                this.props.navigation.navigate('Home');
             }
         } catch (error) {
             console.log('AsyncStorage error: ', error);

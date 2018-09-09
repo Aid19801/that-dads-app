@@ -1,7 +1,7 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
 import { SUBMIT_USER, SUBMIT_USER_OK, SUBMIT_USER_FAIL } from '../../actions/index';
 import { AsyncStorage } from 'react-native';
-
+import { setUniqueIdentifierDB } from '../../utils/utils';
 
 export function* watcherRegisterUser() {
     yield takeLatest(SUBMIT_USER, workerRegisterUser);
@@ -41,6 +41,7 @@ export function* workerRegisterUser(actionObject) {
             }),
         }).then((res) => res.json())
             .then(json => {
+                setUniqueIdentifierDB(json.userId)
                 return json;
             })
             .catch((err) => {
