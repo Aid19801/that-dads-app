@@ -15,24 +15,26 @@ class LoginPage extends Component {
         }
     }
 
-    // checkLogin = async () => {
-    //     const { userName, password } = this.state;
-    //     console.log(`username: ${userName} password: ${password}`);
-    // }
-
     componentDidMount = async () => {
         const { userName, password } = await getUserId();
         this.setState({ userName, password });
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.isLoggedIn) {
+            nextProps.navigation.navigate('Home');
+        }
+    }
+
     render() {
 
         const { userName, password } = this.state;
+        const { checkLogin } = this.props;
 
         return (
             <View style={styles.container}>
                 <Text>LoginPage</Text>
-
+                <Text>{this.props.isLoggedIn}</Text>
                 <View>
 
                     <TextInput
@@ -49,7 +51,7 @@ class LoginPage extends Component {
                         onChangeText={(e) => this.setState({ password: e })}
                     />
 
-                    <Button title='Login' onPress={() => this.props.checkLogin(userName, password)} />
+                    <Button title='Login' onPress={() => checkLogin(userName, password)} />
 
                 </View>
 
@@ -60,13 +62,15 @@ class LoginPage extends Component {
 
 
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        checkLogin: (userName, password) => dispatch({ type: USER_LOGGING_IN, userName, password })
-    }
-}
+const mapStateToProps = (state) => ({
+    isLoggedIn: state.loginStatusReducer.isLoggedIn
+});
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+const mapDispatchToProps = (dispatch) => ({
+    checkLogin: (userName, password) => dispatch({ type: USER_LOGGING_IN, userName, password })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
 const styles = StyleSheet.create({
     container: {

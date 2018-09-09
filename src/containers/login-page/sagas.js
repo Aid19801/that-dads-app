@@ -18,20 +18,21 @@ export function* workerUserLoggingIn(actionObject) {
         yield fetch(`${url}/${uid}`)
             .then(res => res.json())
             .then(json => {
-                console.log('json: ', json);
                 password === json.password ? isLoggedin = true : isLoggedIn = false;
                 userName === json.userName ? isLoggedin = true : isLoggedIn = false;
                 if (password !== json.password)  {
                     alert('WRONG PASSWORD');
                     return isLoggedIn = false;
                 }
-                alert('logged in!')
+                if (userName !== json.userName)  {
+                    alert('WRONG USERNAME');
+                    return isLoggedIn = false;
+                }
                 return isLoggedIn = true;
             })
             .catch(err => console.log('pw match error: ', err))
     } catch (error) {
         console.log('workerUserLoggingIn error: ', error);
     }
-    console.log('isLoggedin: ', isLoggedIn);
     isLoggedIn ? yield put({ type: USER_LOGGED_IN, data: isLoggedIn }) : yield put({ type: USER_LOGIN_FAIL });
 }
