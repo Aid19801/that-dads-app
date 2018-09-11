@@ -11,6 +11,7 @@ export function* workerUserLoggingIn(actionObject) {
     const { password, userName } = actionObject;
 
     let isLoggedIn = false;
+    let isLoading = false;
 
     let uid = yield call(AsyncStorage.getItem, 'uid');
 
@@ -34,5 +35,5 @@ export function* workerUserLoggingIn(actionObject) {
     } catch (error) {
         console.log('workerUserLoggingIn error: ', error);
     }
-    isLoggedIn ? yield put({ type: USER_LOGGED_IN, data: isLoggedIn }) : yield put({ type: USER_LOGIN_FAIL });
+    isLoggedIn ? yield put({ type: USER_LOGGED_IN, isLoggedIn, userName, password, userId: uid, }) : yield put({ type: USER_LOGIN_FAIL });
 }

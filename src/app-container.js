@@ -14,9 +14,9 @@ class LandingPage extends Component {
         }
     }
 
-    // async componentDidMount () {
-    //     this.props.updateAppState();
-    // }
+    async componentDidMount () {
+        this.props.updateAppState();
+    }
 
     componentDidMount = async () => {
         this.props.updateAppState();

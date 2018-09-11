@@ -3,8 +3,10 @@ import { CHECK_LOGIN_STATUS, USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT } 
 
 let initialState = {
     isLoggedIn: false,
-    userId: '',
+    userName: '',
     password: '',
+    userId: '',
+    isLoading: false,
 };
 
 export const loginStatusReducer = (state = initialState, action) => {
@@ -22,6 +24,7 @@ export const loginStatusReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
+                isLoading: true,
                 userId: action.userName,
                 password: action.password,
             }
@@ -33,6 +36,7 @@ export const loginStatusReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: true,
                 userId: action.userId,
+                isLoading: false,
             }
             break;
 
@@ -48,8 +52,3 @@ export const loginStatusReducer = (state = initialState, action) => {
             return state;
     }
 }
-
-// create new Reducer for process of logging-in
-// USER_LOGGING_IN (hits saga to do async/api which actions --> ), USER_LOGIN_SUCCESS, USER_LOGIN_FAIL
-// changes app state
-// ALL of this (reducer, saga, actions and constants should be inside login-page container)

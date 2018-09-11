@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { LogoContainer } from '../index';
+import { FooterNav, MainPageFactory } from '../../components';
+import { colorScheme } from '../../utils/colorscheme';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -12,14 +14,12 @@ class HomePage extends React.Component {
 
         return (
             <View style={styles.container}>
-                <LogoContainer />
+                
+                <MainPageFactory />
 
-                <View>
-
-                    <Text>YAY HOME PAGE.</Text>
-
+                <View style={styles.nav}>
+                    <FooterNav />
                 </View>
-
             </View>
         );
     }
@@ -31,6 +31,17 @@ export default HomePage;
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         alignItems: 'center',
+        justifyContent: 'flex-end',
+        alignContent: 'flex-end',
+    },
+    nav: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '11%',
+        backgroundColor: colorScheme.backgroundColorLight,
     }
 });

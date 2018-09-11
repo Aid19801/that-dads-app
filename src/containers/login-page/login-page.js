@@ -26,10 +26,15 @@ class LoginPage extends Component {
         }
     }
 
+    componentDidUpdate = (prevProps) => {
+        console.log('prevProps: ', prevProps.isLoading);
+        console.log('thisProps: ', this.props.isLoading);
+    }
+    
     render() {
 
         const { userName, password } = this.state;
-        const { checkLogin } = this.props;
+        const { checkLogin, isLoading } = this.props;
 
         return (
             <View style={styles.container}>
@@ -52,7 +57,7 @@ class LoginPage extends Component {
                     />
 
                     <Button title='Login' onPress={() => checkLogin(userName, password)} />
-
+                    { isLoading && <Text style={styles.isLoading}>Loading...</Text> }
                 </View>
 
             </View>
@@ -63,7 +68,8 @@ class LoginPage extends Component {
 
 
 const mapStateToProps = (state) => ({
-    isLoggedIn: state.loginStatusReducer.isLoggedIn
+    isLoggedIn: state.loginStatusReducer.isLoggedIn,
+    isLoading: state.loginStatusReducer.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -76,20 +82,6 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
     },
-    photoTitleContainerText: {
-        ...Platform.select({
-            ios: {
-                fontFamily: 'American Typewriter',
-                color: 'black',
-                fontSize: 15,
-            },
-            android: {
-                fontFamily: 'serif',
-                color: 'black',
-                fontSize: 15,
-            }
-        })
-    },
     textInput: {
         backgroundColor: 'lightgrey',
         width: 280,
@@ -98,6 +90,10 @@ const styles = StyleSheet.create({
         marginTop: 5,
         alignItems: 'center',
         color: 'black',
+        fontSize: 30,
+    },
+    isLoading: {
+        textAlign: 'center',
         fontSize: 30,
     }
 });
