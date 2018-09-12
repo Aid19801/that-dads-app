@@ -1,18 +1,18 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, FlatList } from 'react-native';
-import { colorScheme } from '../../utils/colorscheme';
+import { Text, View, StyleSheet, FlatList } from 'react-native';
 import { ContentBox } from '../index';
 import mocks from '../../mocks/mock-news';
 
 const ContentContainer = () => {
+
     return (
         <View style={styles.container}>
-            <Text>content container</Text>
 
             <FlatList
                 data={mocks}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => 
-                    <ContentBox 
+                    <ContentBox
                         title={item.title}
                         synopsis={item.synopsis}
                         source={item.source}
@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        width: '90%',
-        borderWidth: 1,
+        width: '95%',
+        // borderWidth: 5,
+        borderColor: 'grey',
         alignItems: 'center',
     },
 });

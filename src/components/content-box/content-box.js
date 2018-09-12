@@ -6,7 +6,6 @@ const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils
 
 const ContentBox = (props) => {
     const url = `/Users/adrianthompson/Documents/projects/that-dads-app/src/mocks/${props.img}`;
-    console.log('url: ', url);
     return (
             <View style={styles.storyBox}>
 

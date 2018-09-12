@@ -8,14 +8,14 @@ import store from './src/store';
 // RootStack
 const RootStack = createStackNavigator(
   {
-    Landing: LandingPage, // prod
-    // Landing: {
-    //   screen: HomePage,
-    //   navigationOptions: {
-    //     title: "#ThatDadsApp",
-    //     headerLeft: null,
-    //   }
-    // }, // dev
+    // Landing: LandingPage, // prod
+    Landing: {
+      screen: HomePage,
+      navigationOptions: {
+        title: "#ThatDadsApp",
+        headerLeft: null,
+      }
+    }, // dev
     Registration: RegistrationPage,
     Login: LoginPage,
     Home: {

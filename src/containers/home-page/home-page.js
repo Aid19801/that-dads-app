@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import { LogoContainer } from '../index';
-import { FooterNav, MainPageFactory } from '../../components';
+import { FooterNav, MainPageContainer } from '../../components';
 import { colorScheme } from '../../utils/colorscheme';
 
 class HomePage extends React.Component {
@@ -15,7 +14,7 @@ class HomePage extends React.Component {
         return (
             <View style={styles.container}>
                 
-                <MainPageFactory />
+                <MainPageContainer title="HOME" isHome={true} />
 
                 <View style={styles.nav}>
                     <FooterNav />
