@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        borderRadius: 20,
+        borderRadius: 40,
     },
 });
 

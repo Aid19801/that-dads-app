@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: colorScheme.backgroundColorDark,
         borderWidth: 0.5,
-        height: 40,
+        height: 60,
         borderWidth: 1,
-        marginTop: 2,
+        marginTop: 4,
         borderWidth: 1,
         flexGrow: 1,
         alignItems: 'center',

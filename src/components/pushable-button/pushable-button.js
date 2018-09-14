@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Platform, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { colorScheme } from '../../utils/colorscheme';
 
 
@@ -25,6 +25,15 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         color: colorScheme.fontLight,
+
+        ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter',
+            },
+            android: {
+                fontFamily: 'monospace',
+            }
+        })
     }
 });
 

@@ -95,6 +95,15 @@ const styles = StyleSheet.create({
     isLoading: {
         textAlign: 'center',
         fontSize: 30,
+
+        ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter',
+            },
+            android: {
+                fontFamily: 'monospace',
+            }
+        })
     }
 });
 
