@@ -4,7 +4,6 @@ import { ContentContainer } from '../index';
 
 const MainPageContainer = (props) => (
     <View style={styles.container}>
-        <Text>{props.title}</Text>
         { props.isHome ? <ContentContainer /> : <Text>not the home page</Text>}
     </View>
 );
