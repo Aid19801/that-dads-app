@@ -7,6 +7,7 @@ import reducers from './reducers/index';
 import { watcherRegisterUser } from './containers/registration-page/sagas';
 import { watcherGetLoginStatus } from './sagas';
 import { watcherUserLoggingIn } from './containers/login-page/sagas';
+import { watcherLoadNews } from './components/content-container/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -14,8 +15,9 @@ const store = createStore(reducers, applyMiddleware(sagaMiddleware));
 
 function* rootSaga() {
     yield all([
-        watcherRegisterUser(),
         watcherGetLoginStatus(),
+        watcherLoadNews(),
+        watcherRegisterUser(),
         watcherUserLoggingIn(),
     ])
 }

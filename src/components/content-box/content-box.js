@@ -5,7 +5,9 @@ import { colorScheme } from '../../utils/colorscheme';
 const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png';
 
 const ContentBox = (props) => {
-    const url = `/Users/adrianthompson/Documents/projects/that-dads-app/src/mocks/${props.img}`;
+    // console.log('props: ', props.imgUrl);
+    const imgUrl = `/Users/adrianthompson/Documents/projects/that-dads-app/src/mocks/${props.imgUrl}`;
+    const linkUrl = props.url;
     return (
             <View style={styles.storyBox}>
 
@@ -15,11 +17,12 @@ const ContentBox = (props) => {
 
                         <Image
                             style={styles.image}
-                            source={require('/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png')}
+                            source={{ uri: props.imgUrl }}
                         />
 
                     </View>
-                    <Text style={styles.blurb}>I am a story blah slfo osihopn sihspf lnpiasf iphadfpinp kh ihsf jd</Text>
+                    <Text style={styles.blurb}>{props.synopsis}</Text>
+                    <Text>{props.source}</Text>
                 </TouchableOpacity> 
 
             </View>
@@ -38,19 +41,28 @@ const styles = StyleSheet.create({
         backgroundColor: colorScheme.backgroundColorLight,
     },
     titleAndImage: {
+        width: 190,
         flex: 1,
         flexDirection: 'row',
     },
     title: {
-        fontSize: 20,
-        color: 'black',
+        fontSize: 40,
+        color: 'white',
         flexWrap: 'wrap',
         width: '85%',
+
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10
     },
     image: {
-        width: 40,
-        height: 40,
+        width: '70%',
+        height: '50%',
         borderWidth: 1,
+        shadowOpacity: 0.75,
+        shadowRadius: 15,
+        shadowColor: 'red',
+        shadowOffset: { height: 0, width: 0 },
     },
     blurb: {
         color: 'grey',

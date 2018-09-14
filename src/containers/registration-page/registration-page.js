@@ -14,6 +14,7 @@ class RegistrationPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            randomUser: '',
             keyboardIsShowing: false,
             email: '',
             userName: '',
@@ -37,10 +38,20 @@ class RegistrationPage extends React.Component {
             console.log('AsyncStorage error: ', error);
         }
     }
+
+    generateRandom = () => {
+        let randomNumber = Math.floor(Math.random() * 90000) + 10000
+        let randomUser = randomNumber.toString();
+        this.setState({ randomUser: randomUser, email: `rnnn${randomUser}@net.com`, password: randomUser });
+    }
+
+    componentWillMount = () => {
+        this.generateRandom();
+    }
     
     render() {
 
-        const { email, userName, password, pageOne, pageTwo, pageThree } = this.state;
+        const { email, userName, password, pageOne, pageTwo, pageThree, randomUser } = this.state;
 
         this.userIsAlreadySignedIn();
 
@@ -52,16 +63,19 @@ class RegistrationPage extends React.Component {
 
                     <TextInput
                         placeholder="email"
+                        value={email}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ email: e })}
                     />
                     <TextInput
                         placeholder="username"
+                        value={randomUser}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
+                        value={password}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
                     />

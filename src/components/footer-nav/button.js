@@ -1,13 +1,16 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { colorScheme } from '../../utils/colorscheme';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const NavButton = (props) => {
     return (
         <View style={styles.button}>
-            <TouchableOpacity onPress={() => alert('pressed btn')}>
-                <Text style={styles.text}>{props.buttonTitle}</Text>
-            </TouchableOpacity>
+            <Icon
+                name={props.name}
+                size={35}
+                color='white'
+            />
         </View>
     )
 }
@@ -21,7 +24,6 @@ const styles = StyleSheet.create({
         marginTop: 2,
         borderWidth: 1,
         flexGrow: 1,
-
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -31,3 +33,4 @@ const styles = StyleSheet.create({
 });
 
 export default NavButton;
+
