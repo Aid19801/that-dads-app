@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { CHECK_LOGIN_STATUS, UPDATE_USER_DETAILS } from '../../actions/index';
-import { getUserId, destroyAsyncStorage } from '../../utils/utils';
+import { getUserId } from '../../utils/utils';
 
 class ProfileContainer extends Component {
 

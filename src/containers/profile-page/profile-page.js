@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MainPageContainer, FooterNav } from '../../components/index';
+import { FooterNav } from '../../components/index';
 import { colorScheme } from '../../utils/colorscheme';
-
+import { connect } from 'react-redux';
 class ProfilePage extends Component {
     constructor() {
         super();
@@ -10,15 +10,15 @@ class ProfilePage extends Component {
     }
 
     render() {
-        const { navigation } = this.props;
+
+        console.log('props.username: ', this.props.userName);
+
+        const { navigation, userName } = this.props;
         return (
             <View style={styles.container}>
             
-                <MainPageContainer
-                    title="Profile"
-                    isHome={false}
-                    navigation={navigation}
-                />
+            <Text>userName: {userName}</Text>
+
                 
                 <View style={styles.nav}>
                     <FooterNav navigation={navigation} />
@@ -29,7 +29,11 @@ class ProfilePage extends Component {
     }
 }
 
-export default ProfilePage;
+const mapStateToProps = (state) => ({
+    userName: state.loginStatusReducer.userName,
+})
+
+export default connect(mapStateToProps, null)(ProfilePage);
 
 const styles = StyleSheet.create({
     container: {

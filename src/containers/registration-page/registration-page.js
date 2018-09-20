@@ -6,7 +6,7 @@ import { LogoContainer } from '../index';
 import { SUBMIT_USER } from '../../actions';
 import { connect } from 'react-redux';
 
-import { setUserId } from '../../utils/utils';
+import { setUserId, destroyAsyncStorage } from '../../utils/utils';
 
 const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png';
 
@@ -31,8 +31,8 @@ class RegistrationPage extends React.Component {
             const pw = await AsyncStorage.getItem('password');
             if (pw !== null) {
                 console.log('pw is:: 🍆: ', pw);
-                alert('youre already signed in');
-                this.props.navigation.navigate('Home');
+                // alert('youre already signed in');
+                // this.props.navigation.navigate('Home');
             }
         } catch (error) {
             console.log('AsyncStorage error: ', error);
@@ -42,7 +42,12 @@ class RegistrationPage extends React.Component {
     generateRandom = () => {
         let randomNumber = Math.floor(Math.random() * 90000) + 10000
         let randomUser = randomNumber.toString();
-        this.setState({ randomUser: randomUser, email: `rnnn${randomUser}@net.com`, password: randomUser });
+        this.setState({ 
+            randomUser: randomUser,
+            email: `rnnn${randomUser}@net.com`,
+            password: `pw-randomUser`,
+            userName: `user-randomUser`,
+        });
     }
 
     componentWillMount = () => {
@@ -83,6 +88,10 @@ class RegistrationPage extends React.Component {
                     <Button title='Next' onPress={() => {
                         this.setState({ pageOne: false, pageTwo: true })
                     }} />
+
+                    <Button
+                        title='Destroy Async Data'
+                        onPress={() => { return destroyAsyncStorage() } } />
 
                 </View> }
 

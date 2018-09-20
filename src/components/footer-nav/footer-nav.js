@@ -12,10 +12,7 @@ class Footer extends React.Component {
                 <NavButton buttonTitle="Home" name="home" />
                 <NavButton buttonTitle="Chat" name="chat" />
                 <NavButton buttonTitle="Chat" name="place" />
-                <NavButton buttonTitle="Chat" name="person" />
-
-    
-
+                <NavButton buttonTitle="Profile" name="person" />
             </View>
         );
     }
