@@ -34,7 +34,7 @@ class ContentContainer extends Component {
                 <View style={styles.container}>
 
                     <FlatList
-                        data={mocks}
+                        data={stories}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <ContentBox
