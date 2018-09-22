@@ -26,16 +26,9 @@ class RegistrationPage extends React.Component {
         };
     }
 
-    userIsAlreadySignedIn = async () => {
-        try {
-            const pw = await AsyncStorage.getItem('password');
-            if (pw !== null) {
-                console.log('pw is:: 🍆: ', pw);
-                // alert('youre already signed in');
-                // this.props.navigation.navigate('Home');
-            }
-        } catch (error) {
-            console.log('AsyncStorage error: ', error);
+    userIsAlreadySignedIn = () => {
+        if (isLoggedIn) {
+            this.props.navigation.navigate('Home');
         }
     }
 
@@ -130,11 +123,14 @@ class RegistrationPage extends React.Component {
 
 
 const mapStateToProps = (state, props) => {
+    // take whether APP_LOADED (app state)
+    // and whether USER_LOGGED_IN ()
     const { loading, data, userId} = state.submitUserReducer;
     return {
         loading: loading,
         data: data.users,
         userId: userId,
+        isLoggedIn: state.appStateReducer.isLoggedIn
     }
 }
 

@@ -9,7 +9,7 @@ let initialAppState = {
 export const appStateReducer = (state = initialAppState, action) => {
     switch (action.type) {
         case APP_LOADING:
-        console.log('app loading');
+            console.log('red | APP_LOADING');
             return {
                 ...state,
                 appLoading: true,
@@ -18,7 +18,7 @@ export const appStateReducer = (state = initialAppState, action) => {
         break;
         
         case APP_LOADED:
-            console.log('app loaded');
+            console.log('red | APP_LOADED');
             return {
                 ...state,
                 appLoading: false,
@@ -27,6 +27,7 @@ export const appStateReducer = (state = initialAppState, action) => {
         break;
 
         case APP_FAILED:
+            console.log('red | APP_FAILED');
             return {
                 ...state,
                 appLoading: false,

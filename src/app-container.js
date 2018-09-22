@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, Text } from 'react-native';
 import { LogoContainer, EmojiContainer, ButtonContainer } from './containers';
-import { APP_LOADED, CHECK_LOGIN_STATUS } from './reducers/constants';
+import { APP_LOADING, APP_LOADED, CHECK_LOGIN_STATUS } from './reducers/constants';
 import { setUserId, destroyAsyncStorage } from './utils/utils'
 import { connect } from 'react-redux';
 
@@ -14,19 +14,21 @@ class LandingPage extends Component {
         }
     }
 
-    async componentDidMount () {
-        this.props.updateAppState();
+    componentWillMount() {
+        this.props.updateAppStateToLoading();
     }
 
-    componentDidMount = async () => {
-        this.props.updateAppState();
+    componentDidMount() {
+        this.props.updateAppStateToLoaded();
     }
 
     render() {
-        const { appLoaded, checkLoginStatus, userId } = this.props;
+        const { appLoading, appLoaded, checkLoginStatus, userId } = this.props;
 
-        if (appLoaded) {
-           checkLoginStatus(userId);
+        if (appLoading) {
+            return (
+                <Text style={ { marginTop: 90, marginLeft: 90 } }>Loading...</Text>
+            )
         }
         return (
             <View style={styles.container}>
@@ -55,8 +57,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateAppState: () => dispatch({ type: APP_LOADED }),
-        checkLoginStatus: (userId) => dispatch({ type: CHECK_LOGIN_STATUS, userId })
+        updateAppStateToLoading: () => dispatch({ type: APP_LOADING }),
+        updateAppStateToLoaded: () => dispatch({ type: APP_LOADED }),
     }
 }
 
