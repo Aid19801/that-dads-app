@@ -6,7 +6,7 @@ import { LogoContainer } from '../index';
 import { SUBMIT_USER } from '../../actions';
 import { connect } from 'react-redux';
 
-import { setUserId } from '../../utils/utils';
+import { setUserId, destroyAsyncStorage } from '../../utils/utils';
 
 const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png';
 
@@ -14,6 +14,7 @@ class RegistrationPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            randomUser: '',
             keyboardIsShowing: false,
             email: '',
             userName: '',
@@ -25,22 +26,30 @@ class RegistrationPage extends React.Component {
         };
     }
 
-    userIsAlreadySignedIn = async () => {
-        try {
-            const pw = await AsyncStorage.getItem('password');
-            if (pw !== null) {
-                console.log('pw is:: 🍆: ', pw);
-                alert('youre already signed in');
-                this.props.navigation.navigate('Home');
-            }
-        } catch (error) {
-            console.log('AsyncStorage error: ', error);
+    userIsAlreadySignedIn = () => {
+        if (isLoggedIn) {
+            this.props.navigation.navigate('Home');
         }
+    }
+
+    generateRandom = () => {
+        let randomNumber = Math.floor(Math.random() * 90000) + 10000
+        let randomUser = randomNumber.toString();
+        this.setState({ 
+            randomUser: randomUser,
+            email: `rnnn${randomUser}@net.com`,
+            password: `pw-randomUser`,
+            userName: `user-randomUser`,
+        });
+    }
+
+    componentWillMount = () => {
+        this.generateRandom();
     }
     
     render() {
 
-        const { email, userName, password, pageOne, pageTwo, pageThree } = this.state;
+        const { email, userName, password, pageOne, pageTwo, pageThree, randomUser } = this.state;
 
         this.userIsAlreadySignedIn();
 
@@ -52,16 +61,19 @@ class RegistrationPage extends React.Component {
 
                     <TextInput
                         placeholder="email"
+                        value={email}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ email: e })}
                     />
                     <TextInput
                         placeholder="username"
+                        value={randomUser}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
+                        value={password}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
                     />
@@ -69,6 +81,10 @@ class RegistrationPage extends React.Component {
                     <Button title='Next' onPress={() => {
                         this.setState({ pageOne: false, pageTwo: true })
                     }} />
+
+                    <Button
+                        title='Destroy Async Data'
+                        onPress={() => { return destroyAsyncStorage() } } />
 
                 </View> }
 
@@ -107,11 +123,14 @@ class RegistrationPage extends React.Component {
 
 
 const mapStateToProps = (state, props) => {
+    // take whether APP_LOADED (app state)
+    // and whether USER_LOGGED_IN ()
     const { loading, data, userId} = state.submitUserReducer;
     return {
         loading: loading,
         data: data.users,
         userId: userId,
+        isLoggedIn: state.appStateReducer.isLoggedIn
     }
 }
 

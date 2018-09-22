@@ -25,11 +25,6 @@ class LoginPage extends Component {
             nextProps.navigation.navigate('Home');
         }
     }
-
-    componentDidUpdate = (prevProps) => {
-        console.log('prevProps: ', prevProps.isLoading);
-        console.log('thisProps: ', this.props.isLoading);
-    }
     
     render() {
 
@@ -44,13 +39,13 @@ class LoginPage extends Component {
 
                     <TextInput
                         placeholder="username"
-                        value={this.state.userName || ''}
+                        value={this.state.userName}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
-                        secureTextEntry={true}
+                        secureTextEntry={false}
                         value={this.state.password || ''}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
@@ -95,6 +90,15 @@ const styles = StyleSheet.create({
     isLoading: {
         textAlign: 'center',
         fontSize: 30,
+
+        ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter',
+            },
+            android: {
+                fontFamily: 'monospace',
+            }
+        })
     }
 });
 

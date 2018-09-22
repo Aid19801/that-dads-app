@@ -6,19 +6,24 @@ export function* watcherUserLoggingIn() {
     yield takeLatest(USER_LOGGING_IN, workerUserLoggingIn)
 }
 
-const url = 'https://that-dads-logins.herokuapp.com/api/users';
+
 export function* workerUserLoggingIn(actionObject) {
     const { password, userName } = actionObject;
 
     let isLoggedIn = false;
     let isLoading = false;
 
+    const url = 'https://that-dads-logins.herokuapp.com/api/users';
     let uid = yield call(AsyncStorage.getItem, 'uid');
-
+    
     try {
+
+        console.log('URL is: ',`${url}/${uid}`);
         yield fetch(`${url}/${uid}`)
             .then(res => res.json())
             .then(json => {
+
+                console.log('json response: ', json);
                 password === json.password ? isLoggedin = true : isLoggedIn = false;
                 userName === json.userName ? isLoggedin = true : isLoggedIn = false;
                 if (password !== json.password)  {
