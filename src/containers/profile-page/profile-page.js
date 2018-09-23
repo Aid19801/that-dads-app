@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
 
     },
     personalInfoContainer: {
+        // marginTop: 0,
         flexDirection: 'column',
         borderWidth: 1,
         borderColor: 'black',
