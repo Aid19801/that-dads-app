@@ -8,7 +8,7 @@ import store from './src/store';
 // RootStack
 const RootStack = createStackNavigator(
   {
-    Landing: LoginPage, // prod
+    Landing: LandingPage, // prod
     // Landing: {
     //   screen: HomePage,
     //   navigationOptions: {

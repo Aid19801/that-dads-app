@@ -5,6 +5,7 @@ import { APP_LOADING, APP_LOADED, USER_LOGGED_IN } from './reducers/constants';
 import { destroyAsyncStorage, getUserAsyncStorage } from './utils/utils'
 import { connect } from 'react-redux';
 
+
 class LandingPage extends Component {
 
     constructor() {
@@ -36,7 +37,6 @@ class LandingPage extends Component {
 
     render() {
         const { appLoading, appLoaded, checkLoginStatus, userId } = this.props;
-        console.log('FUBAR userId: ', this.props.userId);
 
         if (appLoading) {
             return (

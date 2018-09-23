@@ -22,13 +22,13 @@ class ProfilePage extends Component {
 
                 <View style={styles.personalInfoContainer}>
                     <View style={styles.personalInfoIndividualRow}>
-                        <Text style={styles.smallFont}>userName: </Text><Text>aid1980</Text>
+                        <Text style={styles.smallFont}>userName: </Text><Text>{userName}</Text>
                     </View>
                     <View style={styles.personalInfoIndividualRow}>
-                        <Text style={styles.smallFont}>email: </Text><Text>aid@aid.com</Text>
+                        <Text style={styles.smallFont}>email: </Text><Text>{email}</Text>
                     </View>
                     <View style={styles.personalInfoIndividualRow}>
-                        <Text style={styles.smallFont}>password: </Text><Text>London01</Text>
+                        <Text style={styles.smallFont}>password: </Text><Text>*******</Text>
                     </View>
                 </View>
 
@@ -72,6 +72,10 @@ const styles = StyleSheet.create({
    
     container: {
         flex: 1,
+        height: '100%',
+        width: '100%',
+        flexDirection: 'column',
+
         alignItems: 'center',
         justifyContent: 'flex-end',
         alignContent: 'flex-end',
@@ -83,6 +87,9 @@ const styles = StyleSheet.create({
     },
     personalInfoContainer: {
         flexDirection: 'column',
+        // marginTop: 80,
+        borderWidth: 1,
+        borderColor: 'black',
         width: 290,
         alignItems: 'center',
         justifyContent: 'flex-end',
@@ -104,6 +111,7 @@ const styles = StyleSheet.create({
         width: 290,
         flexWrap: 'wrap',
         flexDirection: 'row',
+        marginBottom: 5, 
     },
     likesIndividualText: {
         ...Platform.select({
@@ -123,7 +131,8 @@ const styles = StyleSheet.create({
     },
     photoTitleContainer: {
         alignItems: 'center',
-        marginTop: 30,
+        marginTop: 20,
+        marginBottom: 40,
     },
 
     smallFont: {
