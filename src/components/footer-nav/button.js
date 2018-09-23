@@ -4,6 +4,7 @@ import { colorScheme } from '../../utils/colorscheme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const NavButton = (props) => {
+
     return (
         <View style={styles.button}>
         <TouchableOpacity onPress={() => props.navigate.navigate(props.buttonTitle)}>

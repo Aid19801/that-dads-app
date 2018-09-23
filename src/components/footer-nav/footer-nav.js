@@ -14,9 +14,9 @@ class Footer extends React.Component {
 
         return (
             <View style={styles.container}>
-                <NavButton buttonTitle="Home" name="home" />
+                <NavButton buttonTitle="Home" name="home" navigate={navigate} />
                 <NavButton buttonTitle="Chat" name="chat" />
-                <NavButton buttonTitle="Chat" name="place" />
+                <NavButton buttonTitle="Place" name="place" />
                 <NavButton buttonTitle="Profile" name="person" navigate={navigate} />
             </View>
         );
@@ -34,19 +34,3 @@ const styles = StyleSheet.create({
 
 export default Footer;
 
-// <NavButton buttonTitle="Local" name="near_me" />
-//     <NavButton buttonTitle="Me" name="person_pin" />
-
-{/* <TouchableOpacity onPress={() => alert('pressed btn')}>
-    <Button
-        icon={
-            <Icon
-                name={props.name}
-                size={15}
-                color='white'
-            />
-        }
-        title={props.name}
-    />
-</TouchableOpacity>
-        </View > */}

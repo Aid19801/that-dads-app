@@ -8,7 +8,7 @@ import store from './src/store';
 // RootStack
 const RootStack = createStackNavigator(
   {
-    Landing: LandingPage, // prod
+    Landing: LoginPage, // prod
     // Landing: {
     //   screen: HomePage,
     //   navigationOptions: {
@@ -18,7 +18,13 @@ const RootStack = createStackNavigator(
     // }, // dev
     Registration: RegistrationPage,
     Login: LoginPage,
-    Profile: ProfilePage,
+    Profile: {
+      screen: ProfilePage,
+      navigationOptions: {
+        title: "#ThatDadsApp",
+        headerLeft: null,
+      }
+    },
     Home: {
       screen: HomePage,
       navigationOptions: {
