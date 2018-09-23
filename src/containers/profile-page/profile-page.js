@@ -11,13 +11,15 @@ class ProfilePage extends Component {
 
     render() {
 
-        console.log('props.username: ', this.props.userName);
+        console.log('props.username: >>>>> ', this.props.navigation);
 
-        const { navigation, userName } = this.props;
+        const { navigation, userName, email, password } = this.props;
         return (
             <View style={styles.container}>
             
             <Text>userName: {userName}</Text>
+            <Text>email: {email}</Text>
+            <Text>password: {password}</Text>
 
                 
                 <View style={styles.nav}>
@@ -30,7 +32,10 @@ class ProfilePage extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    email: state.loginStatusReducer.email,
+    password: state.loginStatusReducer.password,
     userName: state.loginStatusReducer.userName,
+    userId: state.loginStatusReducer.userId,
 })
 
 export default connect(mapStateToProps, null)(ProfilePage);

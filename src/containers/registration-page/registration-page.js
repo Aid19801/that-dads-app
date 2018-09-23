@@ -27,7 +27,7 @@ class RegistrationPage extends React.Component {
     }
 
     userIsAlreadySignedIn = () => {
-        if (isLoggedIn) {
+        if (this.props.isLoggedIn) {
             this.props.navigation.navigate('Home');
         }
     }
@@ -61,19 +61,19 @@ class RegistrationPage extends React.Component {
 
                     <TextInput
                         placeholder="email"
-                        value={email}
+                        // value={email}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ email: e })}
                     />
                     <TextInput
                         placeholder="username"
-                        value={randomUser}
+                        // value={randomUser}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
-                        value={password}
+                        // value={password}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
                     />
@@ -108,7 +108,6 @@ class RegistrationPage extends React.Component {
                         <Button
                             title='Login?'
                             onPress={() => {
-                                setUserId(userName, password);
                                 this.props.navigation.navigate('Login');
                             }}
                         />
@@ -123,14 +122,12 @@ class RegistrationPage extends React.Component {
 
 
 const mapStateToProps = (state, props) => {
-    // take whether APP_LOADED (app state)
-    // and whether USER_LOGGED_IN ()
-    const { loading, data, userId} = state.submitUserReducer;
+    const { loading, data, userId} = state.registerUserReducer;
     return {
         loading: loading,
         data: data.users,
         userId: userId,
-        isLoggedIn: state.appStateReducer.isLoggedIn
+        isLoggedIn: state.loginStatusReducer.isLoggedIn
     }
 }
 

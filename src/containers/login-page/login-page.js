@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, Button, Platform } from 'react-nativ
 import { USER_LOGGING_IN } from '../../actions/index';
 import { connect } from 'react-redux';
 
-import { getUserId } from '../../utils/utils';
+import { getUserAsyncStorage } from '../../utils/utils';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class LoginPage extends Component {
     }
 
     componentDidMount = async () => {
-        const { userName, password } = await getUserId();
+        const { userName, password } = await getUserAsyncStorage();
         this.setState({ userName, password });
     }
 

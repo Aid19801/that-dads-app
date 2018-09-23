@@ -3,13 +3,13 @@ import { combineReducers } from 'redux';
 import { appStateReducer } from './appStateReducer';
 import { loginStatusReducer } from './loginStatusReducer';
 import { newsReducer } from './newsReducer';
-import { submitUserReducer } from './submitUserReducer';
+import { registerUserReducer } from './registerUserReducer';
 
 const rootReducer = combineReducers({
     appStateReducer,
     loginStatusReducer,
     newsReducer,
-    submitUserReducer,
+    registerUserReducer,
 });
 
 export default rootReducer;

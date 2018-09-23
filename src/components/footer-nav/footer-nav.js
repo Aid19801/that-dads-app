@@ -4,15 +4,20 @@ import NavButton from './button';
 import { colorScheme } from '../../utils/colorscheme';
 
 class Footer extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
+
+        const { navigate } = this.props;
 
         return (
             <View style={styles.container}>
                 <NavButton buttonTitle="Home" name="home" />
                 <NavButton buttonTitle="Chat" name="chat" />
                 <NavButton buttonTitle="Chat" name="place" />
-                <NavButton buttonTitle="Profile" name="person" />
+                <NavButton buttonTitle="Profile" name="person" navigate={navigate} />
             </View>
         );
     }

@@ -20,6 +20,7 @@ export const USER_LOGGING_IN = 'USER_LOGGING_IN';
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
+export const ASYNC_DATA_SAVED = 'ASYNC_DATA_SAVED';
 
 export const checkLoginStatus = (id) => {
     return {

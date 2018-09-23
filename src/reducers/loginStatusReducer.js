@@ -1,5 +1,5 @@
 
-import { CHECK_LOGIN_STATUS, USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT } from '../actions/';
+import { CHECK_LOGIN_STATUS, USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT, ASYNC_DATA_SAVED} from '../actions/';
 
 let initialState = {
     isLoggedIn: false,
@@ -7,6 +7,7 @@ let initialState = {
     password: '',
     userId: '',
     isLoading: false,
+    asyncDataSaved: false,
 };
 
 export const loginStatusReducer = (state = initialState, action) => {
@@ -31,12 +32,16 @@ export const loginStatusReducer = (state = initialState, action) => {
         break;
 
         case USER_LOGGED_IN:
-            console.log('USER_LOGGED_IN');
+            console.log('USER_LOGGED_IN', action);
             return {
                 ...state,
                 isLoggedIn: true,
-                userId: action.userId,
                 isLoading: false,
+
+                password: action.password,
+                userName: action.userName,
+                email: action.email,
+                userId: action.userId,
             }
             break;
 
