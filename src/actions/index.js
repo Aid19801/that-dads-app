@@ -4,7 +4,7 @@ export const SUBMIT_USER = 'SUBMIT_USER';
 export const SUBMIT_USER_OK = 'SUBMIT_USER_OK';
 export const SUBMIT_USER_FAIL = 'SUBMIT_USER_FAIL';
 
-export const submitUser = (email, userName, password, likes, dislikes) => {
+export const submitUser = (email, userName, password, likes, dislikes, tagline) => {
     return {
         type: SUBMIT_USER,
         email,
@@ -12,6 +12,7 @@ export const submitUser = (email, userName, password, likes, dislikes) => {
         password,
         likes,
         dislikes,
+        tagline,
     }
     
 }

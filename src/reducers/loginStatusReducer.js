@@ -1,11 +1,14 @@
 
-import { CHECK_LOGIN_STATUS, USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT, ASYNC_DATA_SAVED} from '../actions/';
+import { CHECK_LOGIN_STATUS, USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT } from '../actions/';
 
 let initialState = {
     isLoggedIn: false,
     userName: '',
     password: '',
     userId: '',
+    likes: '',
+    dislikes: '',
+    tagline: '',
     isLoading: false,
     asyncDataSaved: false,
 };
@@ -44,6 +47,7 @@ export const loginStatusReducer = (state = initialState, action) => {
                 userId: action.userId,
                 likes: action.likes,
                 dislikes: action.dislikes,
+                tagline: action.tagline,
             }
             break;
 

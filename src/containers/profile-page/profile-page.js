@@ -14,8 +14,9 @@ class ProfilePage extends Component {
     }
 
     render() {
+        console.log('this.props.TAGLINE: ', this.props.tagline);
 
-        const { navigation, userName, email, password, likes, dislikes } = this.props;
+        const { navigation, userName, email, password, likes, dislikes, tagline } = this.props;
         return (
             <View style={styles.container}>
             
@@ -46,7 +47,7 @@ class ProfilePage extends Component {
                     <View style={styles.photoContainer}>
                             <Image style={styles.image} source={require(avatar)} />
                     </View>
-
+                    <Text style={styles.tagline}>"{tagline}..."</Text>
                 </View>
 
                     
@@ -67,6 +68,7 @@ const mapStateToProps = (state) => ({
     
     likes: state.loginStatusReducer.likes,
     dislikes: state.loginStatusReducer.dislikes,
+    tagline: state.loginStatusReducer.tagline,
 })
 
 export default connect(mapStateToProps, null)(ProfilePage);
@@ -90,7 +92,6 @@ const styles = StyleSheet.create({
     },
     personalInfoContainer: {
         flexDirection: 'column',
-        // marginTop: 80,
         borderWidth: 1,
         borderColor: 'black',
         width: 290,
@@ -117,18 +118,21 @@ const styles = StyleSheet.create({
         marginBottom: 5, 
     },
     likesIndividualText: {
+        paddingLeft: 15,
+        backgroundColor: 'darkblue',
+        width: 110,
+        borderColor: 'white',
+        
+        borderWidth: 1,
+        color: 'white',
+        fontSize: 15,
+        fontWeight: 'bold',
         ...Platform.select({
             ios: {
                 fontFamily: 'American Typewriter',
-                color: 'black',
-                fontSize: 15,
-                fontWeight: 'bold',
             },
             android: {
                 fontFamily: 'serif',
-                color: 'black',
-                fontSize: 15,
-                fontWeight: 'bold',
             }
         })
     },
@@ -172,8 +176,8 @@ const styles = StyleSheet.create({
 
     photoContainer: {
         borderWidth: 2,
-        width: 170,
-        height: 170,
+        width: 130,
+        height: 130,
         marginBottom: 10,
         marginTop: 10,
     },
@@ -186,6 +190,11 @@ const styles = StyleSheet.create({
         position: 'relative',
         margin: 0,
 
+    },
+
+    tagline: {
+        fontStyle: 'italic',
+        textAlign: 'center',
     },
 
     nav: {

@@ -21,6 +21,7 @@ class RegistrationPage extends React.Component {
             password: '',
             likes: '',
             dislikes: '',
+            tagline: '',
             userUpdated: false,
             pageOne: true,
             pageTwo: false,
@@ -51,7 +52,7 @@ class RegistrationPage extends React.Component {
     
     render() {
 
-        const { email, userName, password, likes, dislikes, pageOne, pageTwo, pageThree, randomUser } = this.state;
+        const { email, userName, password, likes, dislikes, tagline, pageOne, pageTwo, pageThree, randomUser } = this.state;
 
         this.userIsAlreadySignedIn();
 
@@ -109,9 +110,15 @@ class RegistrationPage extends React.Component {
                         <Image style={styles.image} source={require(avatar)} />
                     </View>
 
+                    <TextInput
+                        placeholder="tagline"
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ tagline: e })}
+                    />
+
                     <Button title='Register User' onPress={() => {
                         this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
-                        this.props.registerUser(email, userName, password, likes, dislikes);
+                        this.props.registerUser(email, userName, password, likes, dislikes, tagline);
                     }} />
 
                 </View> }
@@ -147,7 +154,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        registerUser: (email, userName, password, likes, dislikes) => dispatch({ type: SUBMIT_USER, email, userName, password, likes, dislikes })
+        registerUser: (email, userName, password, likes, dislikes, tagline) => dispatch({ type: SUBMIT_USER, email, userName, password, likes, dislikes, tagline })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);

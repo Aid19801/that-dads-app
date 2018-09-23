@@ -8,6 +8,9 @@ let initialSubmitUserState = {
     password: '',
     userName: '',
     userId: '',
+    likes: '',
+    dislikes: '',
+    tagline: '',
     isRegistered: false,
     asyncDataSaved: false,
 };
@@ -38,6 +41,7 @@ export const registerUserReducer = (state = initialSubmitUserState, action) => {
                 email: action.email,
                 likes: action.likes,
                 dislikes: action.dislikes,
+                tagline: action.tagline,
             }
             break;
 
