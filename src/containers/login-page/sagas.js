@@ -17,6 +17,8 @@ export function* workerUserLoggingIn(actionObject) {
     const url = 'https://that-dads-logins.herokuapp.com/api/users';
     let userId = yield call(AsyncStorage.getItem, 'userId');
     let email = yield call(AsyncStorage.getItem, 'email');
+    let likes = yield call(AsyncStorage.getItem, 'likes');
+    let dislikes = yield call(AsyncStorage.getItem, 'dislikes');
     
     try {
 
@@ -42,5 +44,5 @@ export function* workerUserLoggingIn(actionObject) {
     } catch (error) {
         console.log('workerUserLoggingIn error: ', error);
     }
-    isLoggedIn ? yield put({ type: USER_LOGGED_IN, email, userName, password, userId, }) : yield put({ type: USER_LOGIN_FAIL });
+    isLoggedIn ? yield put({ type: USER_LOGGED_IN, email, userName, password, userId, likes, dislikes }) : yield put({ type: USER_LOGIN_FAIL });
 }

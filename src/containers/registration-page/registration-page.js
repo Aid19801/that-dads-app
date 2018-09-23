@@ -19,6 +19,8 @@ class RegistrationPage extends React.Component {
             email: '',
             userName: '',
             password: '',
+            likes: '',
+            dislikes: '',
             userUpdated: false,
             pageOne: true,
             pageTwo: false,
@@ -28,7 +30,7 @@ class RegistrationPage extends React.Component {
 
     userIsAlreadySignedIn = () => {
         if (this.props.isLoggedIn) {
-            this.props.navigation.navigate('Home');
+            // this.props.navigation.navigate('Home');
         }
     }
 
@@ -49,7 +51,7 @@ class RegistrationPage extends React.Component {
     
     render() {
 
-        const { email, userName, password, pageOne, pageTwo, pageThree, randomUser } = this.state;
+        const { email, userName, password, likes, dislikes, pageOne, pageTwo, pageThree, randomUser } = this.state;
 
         this.userIsAlreadySignedIn();
 
@@ -77,6 +79,18 @@ class RegistrationPage extends React.Component {
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
                     />
+                    <TextInput
+                        placeholder="likes"
+                        // value={password}
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ likes: e })}
+                    />
+                    <TextInput
+                        placeholder="dislikes"
+                        // value={password}
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ dislikes: e })}
+                    />
 
                     <Button title='Next' onPress={() => {
                         this.setState({ pageOne: false, pageTwo: true })
@@ -97,7 +111,7 @@ class RegistrationPage extends React.Component {
 
                     <Button title='Register User' onPress={() => {
                         this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
-                        this.props.registerUser(email, userName, password);
+                        this.props.registerUser(email, userName, password, likes, dislikes);
                     }} />
 
                 </View> }
@@ -133,7 +147,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        registerUser: (email, userName, password) => dispatch({ type: SUBMIT_USER, email, userName, password })
+        registerUser: (email, userName, password, likes, dislikes) => dispatch({ type: SUBMIT_USER, email, userName, password, likes, dislikes })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
@@ -198,6 +212,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         alignItems: 'center',
         color: 'black',
-        fontSize: 30,
+        fontSize: 20,
     }
 });

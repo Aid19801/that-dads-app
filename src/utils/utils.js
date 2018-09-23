@@ -8,16 +8,20 @@ const setUniqueIdentifierDB = async (uid) => {
     }
 }
 
-const setUserAsyncStorage = async (userId, userName, email, passw) => {
+const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislikes) => {
     console.log('async storage | setting userId: ', userId);
     console.log('async storage | setting passw: ', passw);
     console.log('async storage | setting userName: ', userName);
     console.log('async storage | setting email: ', email);
+    console.log('async storage | setting likes: ', likes);
+    console.log('async storage | setting dislikes: ', dislikes);
     try {
         await AsyncStorage.setItem('userId', userId);
         await AsyncStorage.setItem('userName', userName);
         await AsyncStorage.setItem('password', passw);
         await AsyncStorage.setItem('email', email);
+        await AsyncStorage.setItem('likes', likes);
+        await AsyncStorage.setItem('dislikes', dislikes);
         console.log('Async Storage | all items set correctly');
         return true;
     } catch (error) {

@@ -42,6 +42,8 @@ export const loginStatusReducer = (state = initialState, action) => {
                 userName: action.userName,
                 email: action.email,
                 userId: action.userId,
+                likes: action.likes,
+                dislikes: action.dislikes,
             }
             break;
 

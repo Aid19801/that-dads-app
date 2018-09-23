@@ -25,7 +25,7 @@ export function* watcherRegisterUser() {
 
 const url = 'https://that-dads-logins.herokuapp.com/api/users';
 export function* workerRegisterUser(actionObject) {
-    const { email, password, userName } = actionObject;
+    const { email, password, userName, likes, dislikes } = actionObject;
 
     try {
         const dataBack = yield fetch(url, {
@@ -38,6 +38,8 @@ export function* workerRegisterUser(actionObject) {
                 email,
                 userName,
                 password,
+                likes,
+                dislikes,
             }),
         }).then((res) => res.json())
             .then(json => {
@@ -49,7 +51,7 @@ export function* workerRegisterUser(actionObject) {
                 return err;
             })
 
-            const isSavedToAsyncStorage = setUserAsyncStorage(dataBack.userId, userName, email, password);
+            const isSavedToAsyncStorage = setUserAsyncStorage(dataBack.userId, userName, email, password, likes, dislikes);
 
             if (isSavedToAsyncStorage) {
                 yield put({ type: ASYNC_DATA_SAVED });
@@ -59,6 +61,8 @@ export function* workerRegisterUser(actionObject) {
                     password,
                     email,
                     userName,
+                    likes,
+                    dislikes,
                 })
             }
     } catch (error) {

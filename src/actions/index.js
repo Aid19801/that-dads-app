@@ -4,12 +4,14 @@ export const SUBMIT_USER = 'SUBMIT_USER';
 export const SUBMIT_USER_OK = 'SUBMIT_USER_OK';
 export const SUBMIT_USER_FAIL = 'SUBMIT_USER_FAIL';
 
-export const submitUser = (email, userName, password) => {
+export const submitUser = (email, userName, password, likes, dislikes) => {
     return {
         type: SUBMIT_USER,
         email,
         userName,
         password,
+        likes,
+        dislikes,
     }
     
 }

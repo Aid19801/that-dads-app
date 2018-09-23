@@ -15,7 +15,7 @@ class ProfilePage extends Component {
 
     render() {
 
-        const { navigation, userName, email, password } = this.props;
+        const { navigation, userName, email, password, likes, dislikes } = this.props;
         return (
             <View style={styles.container}>
             
@@ -35,10 +35,10 @@ class ProfilePage extends Component {
 
                 <View style={styles.likesDislikesContainer}>
                     <View style={styles.likesIndividualRow}>
-                        <Text style={styles.likesIndividualText}>Likes: </Text><Text>sometimes i like walks in the park and drinking coffee. then beer.</Text>
+                        <Text style={styles.likesIndividualText}>Likes: </Text><Text>{likes}</Text>
                     </View>
                     <View style={styles.likesIndividualRow}>
-                        <Text style={styles.likesIndividualText}>Dislikes: </Text><Text>i am rather impartial to bad coffee and walks in the park when it's raining.</Text>
+                        <Text style={styles.likesIndividualText}>Dislikes: </Text><Text>{dislikes}</Text>
                     </View>
                 </View>
                 <View style={styles.photoTitleContainer}>
@@ -64,6 +64,9 @@ const mapStateToProps = (state) => ({
     password: state.loginStatusReducer.password,
     userName: state.loginStatusReducer.userName,
     userId: state.loginStatusReducer.userId,
+    
+    likes: state.loginStatusReducer.likes,
+    dislikes: state.loginStatusReducer.dislikes,
 })
 
 export default connect(mapStateToProps, null)(ProfilePage);

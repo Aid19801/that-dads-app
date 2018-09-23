@@ -26,7 +26,7 @@ export const registerUserReducer = (state = initialSubmitUserState, action) => {
             break;
 
         case SUBMIT_USER_OK:
-        console.log('submit user ok: ', action);
+            console.log('SUBMIT_USER_OK: ', action);
             return {
                 ...state,
                 loading: false,
@@ -36,11 +36,13 @@ export const registerUserReducer = (state = initialSubmitUserState, action) => {
                 password: action.password,
                 userName: action.userName,
                 email: action.email,
+                likes: action.likes,
+                dislikes: action.dislikes,
             }
             break;
 
         case SUBMIT_USER_FAIL:
-            console.log('submit user fail: ', action);
+            console.log('SUBMIT_USER_FAIL: ', action);
             return {
                 ...state,
                 isRegistered: false,
