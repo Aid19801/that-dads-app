@@ -6,7 +6,11 @@ let initialState = {
     userName: '',
     password: '',
     userId: '',
+    likes: '',
+    dislikes: '',
+    tagline: '',
     isLoading: false,
+    asyncDataSaved: false,
 };
 
 export const loginStatusReducer = (state = initialState, action) => {
@@ -35,8 +39,15 @@ export const loginStatusReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: true,
-                userId: action.userId,
                 isLoading: false,
+
+                password: action.password,
+                userName: action.userName,
+                email: action.email,
+                userId: action.userId,
+                likes: action.likes,
+                dislikes: action.dislikes,
+                tagline: action.tagline,
             }
             break;
 

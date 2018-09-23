@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { CHECK_LOGIN_STATUS, UPDATE_USER_DETAILS } from '../../actions/index';
-import { getUserId } from '../../utils/utils';
+import { getUserAsyncStorage } from '../../utils/utils';
 
 class ProfileContainer extends Component {
 
@@ -52,7 +52,7 @@ class ProfileContainer extends Component {
     }
 
     componentDidMount = async () => {
-        const { userId } = await getUserId();
+        const { userId } = await getUserAsyncStorage();
         this.props.checkLoginStatus(userId);
     }
 

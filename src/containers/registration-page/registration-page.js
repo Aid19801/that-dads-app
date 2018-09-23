@@ -19,6 +19,9 @@ class RegistrationPage extends React.Component {
             email: '',
             userName: '',
             password: '',
+            likes: '',
+            dislikes: '',
+            tagline: '',
             userUpdated: false,
             pageOne: true,
             pageTwo: false,
@@ -27,8 +30,8 @@ class RegistrationPage extends React.Component {
     }
 
     userIsAlreadySignedIn = () => {
-        if (isLoggedIn) {
-            this.props.navigation.navigate('Home');
+        if (this.props.isLoggedIn) {
+            // this.props.navigation.navigate('Home');
         }
     }
 
@@ -49,7 +52,7 @@ class RegistrationPage extends React.Component {
     
     render() {
 
-        const { email, userName, password, pageOne, pageTwo, pageThree, randomUser } = this.state;
+        const { email, userName, password, likes, dislikes, tagline, pageOne, pageTwo, pageThree, randomUser } = this.state;
 
         this.userIsAlreadySignedIn();
 
@@ -61,21 +64,33 @@ class RegistrationPage extends React.Component {
 
                     <TextInput
                         placeholder="email"
-                        value={email}
+                        // value={email}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ email: e })}
                     />
                     <TextInput
                         placeholder="username"
-                        value={randomUser}
+                        // value={randomUser}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
-                        value={password}
+                        // value={password}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
+                    />
+                    <TextInput
+                        placeholder="likes"
+                        // value={password}
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ likes: e })}
+                    />
+                    <TextInput
+                        placeholder="dislikes"
+                        // value={password}
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ dislikes: e })}
                     />
 
                     <Button title='Next' onPress={() => {
@@ -95,9 +110,15 @@ class RegistrationPage extends React.Component {
                         <Image style={styles.image} source={require(avatar)} />
                     </View>
 
+                    <TextInput
+                        placeholder="tagline"
+                        style={styles.textInput}
+                        onChangeText={(e) => this.setState({ tagline: e })}
+                    />
+
                     <Button title='Register User' onPress={() => {
                         this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
-                        this.props.registerUser(email, userName, password);
+                        this.props.registerUser(email, userName, password, likes, dislikes, tagline);
                     }} />
 
                 </View> }
@@ -108,7 +129,6 @@ class RegistrationPage extends React.Component {
                         <Button
                             title='Login?'
                             onPress={() => {
-                                setUserId(userName, password);
                                 this.props.navigation.navigate('Login');
                             }}
                         />
@@ -123,20 +143,18 @@ class RegistrationPage extends React.Component {
 
 
 const mapStateToProps = (state, props) => {
-    // take whether APP_LOADED (app state)
-    // and whether USER_LOGGED_IN ()
-    const { loading, data, userId} = state.submitUserReducer;
+    const { loading, data, userId} = state.registerUserReducer;
     return {
         loading: loading,
         data: data.users,
         userId: userId,
-        isLoggedIn: state.appStateReducer.isLoggedIn
+        isLoggedIn: state.loginStatusReducer.isLoggedIn
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        registerUser: (email, userName, password) => dispatch({ type: SUBMIT_USER, email, userName, password })
+        registerUser: (email, userName, password, likes, dislikes, tagline) => dispatch({ type: SUBMIT_USER, email, userName, password, likes, dislikes, tagline })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
@@ -201,6 +219,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         alignItems: 'center',
         color: 'black',
-        fontSize: 30,
+        fontSize: 20,
     }
 });

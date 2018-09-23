@@ -1,7 +1,7 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
-import { SUBMIT_USER, SUBMIT_USER_OK, SUBMIT_USER_FAIL } from '../../actions/index';
+import { SUBMIT_USER, SUBMIT_USER_OK, SUBMIT_USER_FAIL, ASYNC_DATA_SAVED } from '../../actions/index';
 import { AsyncStorage } from 'react-native';
-import { setUniqueIdentifierDB } from '../../utils/utils';
+import { setUserAsyncStorage, setUniqueIdentifierDB } from '../../utils/utils';
 
 export function* watcherRegisterUser() {
     yield takeLatest(SUBMIT_USER, workerRegisterUser);
@@ -25,7 +25,7 @@ export function* watcherRegisterUser() {
 
 const url = 'https://that-dads-logins.herokuapp.com/api/users';
 export function* workerRegisterUser(actionObject) {
-    const { email, password, userName } = actionObject;
+    const { email, password, userName, likes, dislikes, tagline } = actionObject;
 
     try {
         const dataBack = yield fetch(url, {
@@ -38,6 +38,9 @@ export function* workerRegisterUser(actionObject) {
                 email,
                 userName,
                 password,
+                likes,
+                dislikes,
+                tagline,
             }),
         }).then((res) => res.json())
             .then(json => {
@@ -48,8 +51,22 @@ export function* workerRegisterUser(actionObject) {
                 console.log('user-registration error: ', err);
                 return err;
             })
-        yield put({ type: SUBMIT_USER_OK, data: dataBack.userId })
 
+            const isSavedToAsyncStorage = setUserAsyncStorage(dataBack.userId, userName, email, password, likes, dislikes, tagline);
+
+            if (isSavedToAsyncStorage) {
+                yield put({ type: ASYNC_DATA_SAVED });
+                yield put({
+                    type: SUBMIT_USER_OK,
+                    userId: dataBack.userId,
+                    password,
+                    email,
+                    userName,
+                    likes,
+                    dislikes,
+                    tagline,
+                })
+            }
     } catch (error) {
         console.log('error: ', error);
         yield put({ type: SUBMIT_USER_FAIL, error });

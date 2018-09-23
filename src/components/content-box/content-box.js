@@ -1,17 +1,14 @@
 import React from 'react';
-import { Platform, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Platform, Linking, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { colorScheme } from '../../utils/colorscheme';
 
-const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png';
-
 const ContentBox = (props) => {
-    // console.log('props: ', props.imgUrl);
-    const imgUrl = `/Users/adrianthompson/Documents/projects/that-dads-app/src/mocks/${props.imgUrl}`;
+    // const imgUrl = `/Users/adrianthompson/Documents/projects/that-dads-app/src/mocks/${props.imgUrl}`;
     const linkUrl = props.url;
     return (
             <View style={styles.storyBox}>
 
-                <TouchableOpacity onPress={() => alert('pushed!')}>
+                <TouchableOpacity onPress={() => Linking.openURL(linkUrl)}>
                     <View style={styles.titleAndImage}>
                         <Text style={styles.title}>{props.title}</Text>
 
@@ -22,7 +19,7 @@ const ContentBox = (props) => {
 
                     </View>
                     <Text style={styles.blurb}>{props.synopsis}</Text>
-                    <Text>{props.source}</Text>
+                    <Text style={styles.source}>{props.source}</Text>
                 </TouchableOpacity> 
 
             </View>
@@ -53,7 +50,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(26, 26, 89, 0.4)',
     },
     title: {
-        fontSize: 40,
+        fontSize: 30,
         color: 'white',
         flexWrap: 'wrap',
         width: '50%',
@@ -98,6 +95,9 @@ const styles = StyleSheet.create({
                 fontSize: 23,
             }
         })
+    },
+    source: {
+        justifyContent: 'flex-end',
     }
 });
 

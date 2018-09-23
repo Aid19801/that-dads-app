@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Text, StyleSheet, View } from 'react-native';
 import { FooterNav, MainPageContainer } from '../../components';
 import { colorScheme } from '../../utils/colorscheme';
+import { Button } from 'react-native-elements';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -10,14 +12,12 @@ class HomePage extends React.Component {
     }
 
     render() {
-
+        const { navigation } = this.props;
         return (
             <View style={styles.container}>
-                
                 <MainPageContainer title="HOME" isHome={true} />
-
                 <View style={styles.nav}>
-                    <FooterNav />
+                    <FooterNav navigate={navigation} />
                 </View>
             </View>
         );
@@ -25,7 +25,11 @@ class HomePage extends React.Component {
 
 };
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+    userId: state.registerUserReducer.userId
+})
+
+export default connect(mapStateToProps, null)(HomePage);
 
 
 const styles = StyleSheet.create({

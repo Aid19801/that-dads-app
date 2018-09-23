@@ -1,39 +1,33 @@
 import React from 'react';
 import { Platform, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { colorScheme } from '../../utils/colorscheme';
-
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const PushableButton = (props) => {
     return (
-        <View style={styles.button}>
-            <TouchableOpacity onPress={() => props.navigation.navigate(`${props.buttonTitle}`)}>
-                <Text style={styles.text}>{props.buttonTitle}</Text>
-            </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+            <Button
+                title={props.buttonTitle}
+                onPress={() => props.navigation.navigate(`${props.buttonTitle}`)}
+                color="white"
+                buttonStyle={styles.button}
+                />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    button: {
-        borderWidth: 2,
-        borderColor: 'grey',
-        margin: 10,
-        padding: 30,
-        backgroundColor: colorScheme.backgroundColorDark,
-        borderRadius: 25,
+    buttonContainer: {
+        borderRadius: 55,
     },
-    text: {
-        fontSize: 20,
-        color: colorScheme.fontLight,
-
-        ...Platform.select({
-            ios: {
-                fontFamily: 'American Typewriter',
-            },
-            android: {
-                fontFamily: 'monospace',
-            }
-        })
+    button: {
+        backgroundColor: "rgba(92, 99,216, 1)",
+        borderColor: "transparent",
+        height: 60,
+        width: 120,
+        borderWidth: 0,
+        borderRadius: 5
     }
 });
 

@@ -4,12 +4,15 @@ export const SUBMIT_USER = 'SUBMIT_USER';
 export const SUBMIT_USER_OK = 'SUBMIT_USER_OK';
 export const SUBMIT_USER_FAIL = 'SUBMIT_USER_FAIL';
 
-export const submitUser = (email, userName, password) => {
+export const submitUser = (email, userName, password, likes, dislikes, tagline) => {
     return {
         type: SUBMIT_USER,
         email,
         userName,
         password,
+        likes,
+        dislikes,
+        tagline,
     }
     
 }
@@ -20,6 +23,7 @@ export const USER_LOGGING_IN = 'USER_LOGGING_IN';
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
+export const ASYNC_DATA_SAVED = 'ASYNC_DATA_SAVED';
 
 export const checkLoginStatus = (id) => {
     return {

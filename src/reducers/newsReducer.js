@@ -10,16 +10,16 @@ let initialState = {
 export const newsReducer = (state = initialState, action) => {
     switch(action.type) {
         case actions.LOAD_NEWS:
-            console.log('load news fired');
+            console.log('LOAD_NEWS');
         case actions.LOADING_NEWS:
-            console.log('loading news fired');
+            console.log('LOADING_NEWS');
             return {
                 ...state,
                 loading: true,
             }
             break;
         case actions.LOADED_NEWS:
-            console.log('loaded news fired');
+            console.log('LOADED_NEWS');
             return {
                 ...state,
                 loading: false,
@@ -28,7 +28,7 @@ export const newsReducer = (state = initialState, action) => {
             }
             break;
         case actions.LOAD_NEWS_FAIL:
-            console.log('load news fail: ', action.error);
+            console.log('LOAD_NEWS_FAIL', action.error);
             return {
                 ...state,
                 error: action.error

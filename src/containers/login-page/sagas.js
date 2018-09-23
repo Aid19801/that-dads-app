@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native'
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGIN_FAIL } from '../../actions/index';
+import { setUserAsyncStorage } from '../../utils/utils';
 
 export function* watcherUserLoggingIn() {
     yield takeLatest(USER_LOGGING_IN, workerUserLoggingIn)
@@ -14,12 +15,16 @@ export function* workerUserLoggingIn(actionObject) {
     let isLoading = false;
 
     const url = 'https://that-dads-logins.herokuapp.com/api/users';
-    let uid = yield call(AsyncStorage.getItem, 'uid');
+    let userId = yield call(AsyncStorage.getItem, 'userId');
+    let email = yield call(AsyncStorage.getItem, 'email');
+    let likes = yield call(AsyncStorage.getItem, 'likes');
+    let dislikes = yield call(AsyncStorage.getItem, 'dislikes');
+    let tagline = yield call(AsyncStorage.getItem, 'tagline');
     
     try {
 
-        console.log('URL is: ',`${url}/${uid}`);
-        yield fetch(`${url}/${uid}`)
+        console.log('URL is: ',`${url}/${userId}`);
+        yield fetch(`${url}/${userId}`)
             .then(res => res.json())
             .then(json => {
 
@@ -40,5 +45,5 @@ export function* workerUserLoggingIn(actionObject) {
     } catch (error) {
         console.log('workerUserLoggingIn error: ', error);
     }
-    isLoggedIn ? yield put({ type: USER_LOGGED_IN, isLoggedIn, userName, password, userId: uid, }) : yield put({ type: USER_LOGIN_FAIL });
+    isLoggedIn ? yield put({ type: USER_LOGGED_IN, email, userName, password, userId, likes, dislikes, tagline }) : yield put({ type: USER_LOGIN_FAIL });
 }

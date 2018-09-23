@@ -18,7 +18,13 @@ const RootStack = createStackNavigator(
     // }, // dev
     Registration: RegistrationPage,
     Login: LoginPage,
-    Profile: ProfilePage,
+    Profile: {
+      screen: ProfilePage,
+      navigationOptions: {
+        title: "#ThatDadsApp",
+        headerLeft: null,
+      }
+    },
     Home: {
       screen: HomePage,
       navigationOptions: {

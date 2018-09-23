@@ -4,15 +4,20 @@ import NavButton from './button';
 import { colorScheme } from '../../utils/colorscheme';
 
 class Footer extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
 
+        const { navigate } = this.props;
+
         return (
             <View style={styles.container}>
-                <NavButton buttonTitle="Home" name="home" />
+                <NavButton buttonTitle="Home" name="home" navigate={navigate} />
                 <NavButton buttonTitle="Chat" name="chat" />
-                <NavButton buttonTitle="Chat" name="place" />
-                <NavButton buttonTitle="Profile" name="person" />
+                <NavButton buttonTitle="Place" name="place" />
+                <NavButton buttonTitle="Profile" name="person" navigate={navigate} />
             </View>
         );
     }
@@ -29,19 +34,3 @@ const styles = StyleSheet.create({
 
 export default Footer;
 
-// <NavButton buttonTitle="Local" name="near_me" />
-//     <NavButton buttonTitle="Me" name="person_pin" />
-
-{/* <TouchableOpacity onPress={() => alert('pressed btn')}>
-    <Button
-        icon={
-            <Icon
-                name={props.name}
-                size={15}
-                color='white'
-            />
-        }
-        title={props.name}
-    />
-</TouchableOpacity>
-        </View > */}
