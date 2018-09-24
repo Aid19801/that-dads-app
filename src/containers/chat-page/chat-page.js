@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 import { FooterNav } from '../../components/index';
 import { ChatMsg } from './chat-msg';
@@ -13,27 +14,46 @@ class ChatPage extends Component {
         super(props);
         this.state = {
             newMessage: '',
-            mockMsgs: [],
+            chatMsgs: [],
         }
     }
 
     renderMessages = () => {
-        this.setState({
-            mockMsgs,
-        })
+        
     };
 
-    componentDidMount = () => {
-        this.renderMessages();
+
+    componentWillReceiveProps(nextProps) {
+        let { chatMsgs } = nextProps;
+        console.log('YAY IS THIS WORKING > chat msgs: ', chatMsgs);
+        this.setState({
+            chatMsgs,
+        })
+    }
+
+
+    componentWillMount = () => {
+        this.props.loadChatPage();
     };
 
     render() {
+
+        const { chatMsgs } = this.state;
+        const { isLoading } = this.props;
+
+
+        if (isLoading) {
+            return (
+                <Text>Loading, just be patient for gods sake...</Text>
+            )
+        }
+
         return (
             <View style={styles.container}>
 
                 <View style={styles.chatRowsContainer}>
-                    { mockMsgs.map((each, i) => (
-                        <ChatMsg key={i} handle={each.handle} chatMsgText={each.msg}  />
+                    { chatMsgs.map((each, i) => (
+                        <ChatMsg key={i} userName={each.userName} chatMsgText={each.msgText}  />
                     )) }
                 </View>
 
@@ -57,7 +77,16 @@ class ChatPage extends Component {
     }
 }
 
-export default ChatPage;
+const mapStateToProps = (state) => ({
+    isLoading: state.chatPageReducer.loading,
+    chatMsgs: state.chatPageReducer.chatMsgs,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    loadChatPage: () => dispatch({ type: actions.LOAD_CHAT_PAGE })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
 
 const styles = StyleSheet.create({
     container: {

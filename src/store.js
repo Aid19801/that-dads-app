@@ -9,6 +9,7 @@ import { watcherGetLoginStatus } from './sagas';
 import { watcherUserLoggingIn } from './containers/login-page/sagas';
 import { watcherUpdateUserLocation } from './containers/map-page/sagas';
 import { watcherLoadNews } from './components/content-container/sagas';
+import { watcherLoadChatPage } from './containers/chat-page/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -18,6 +19,7 @@ function* rootSaga() {
     yield all([
         watcherGetLoginStatus(),
         watcherLoadNews(),
+        watcherLoadChatPage(),
         watcherRegisterUser(),
         watcherUserLoggingIn(),
         watcherUpdateUserLocation(),

@@ -5,7 +5,7 @@ export const ChatMsg = (props) => (
     <View style={styles.chatMsgContainer}>
 
         <View style={styles.handleContainer}>
-            <Text style={styles.handleText}>{props.handle}</Text>
+            <Text style={styles.handleText}>{props.userName}</Text>
         </View>
         <Text style={styles.chatMsgText}>{props.chatMsgText}</Text>
     </View>
