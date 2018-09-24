@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
         alignContent: 'flex-end',
     },
     nav: {
-        justifyContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',

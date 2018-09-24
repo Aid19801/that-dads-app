@@ -1,6 +1,6 @@
 import React from 'react';
 import LandingPage from './src/app-container';
-import { RegistrationPage, LoginPage, HomePage, ProfilePage } from './src/containers';
+import { RegistrationPage, LoginPage, MapPage, HomePage, ProfilePage, ChatPage } from './src/containers';
 import { createStackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from './src/store';
@@ -8,7 +8,7 @@ import store from './src/store';
 // RootStack
 const RootStack = createStackNavigator(
   {
-    Landing: LandingPage, // prod
+    // prod
     // Landing: {
     //   screen: HomePage,
     //   navigationOptions: {
@@ -18,17 +18,38 @@ const RootStack = createStackNavigator(
     // }, // dev
     Registration: RegistrationPage,
     Login: LoginPage,
+    Map: {
+      screen: MapPage,
+      navigationOptions: {
+        title: "#localDads",
+        headerLeft: null,
+      }
+    },
+    Chat: {
+      screen: ChatPage,
+      navigationOptions: {
+        title: "#chat",
+        headerLeft: null,
+      }
+    },
+    Landing: {
+      screen: LoginPage,
+      navigationOptions: {
+        title: '',
+        headerLeft: null,
+      }
+    },
     Profile: {
       screen: ProfilePage,
       navigationOptions: {
-        title: "#ThatDadsApp",
+        title: "#profile",
         headerLeft: null,
       }
     },
     Home: {
       screen: HomePage,
       navigationOptions: {
-        title: "#ThatDadsApp",
+        title: "#thatDadsApp",
         headerLeft: null,
       }
     }

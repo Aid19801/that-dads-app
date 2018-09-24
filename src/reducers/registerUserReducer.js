@@ -11,6 +11,8 @@ let initialSubmitUserState = {
     likes: '',
     dislikes: '',
     tagline: '',
+    longitude: '',
+    latitude: '',
     isRegistered: false,
     asyncDataSaved: false,
 };
@@ -18,7 +20,7 @@ let initialSubmitUserState = {
 export const registerUserReducer = (state = initialSubmitUserState, action) => {
     switch (action.type) {
         case SUBMIT_USER:
-        console.log('SUBMIT_USER: ', action);
+        console.log('SUBMIT_USER');
             return {
                 ...state,
                 loading: true,
@@ -29,7 +31,7 @@ export const registerUserReducer = (state = initialSubmitUserState, action) => {
             break;
 
         case SUBMIT_USER_OK:
-            console.log('SUBMIT_USER_OK: ', action);
+            console.log('SUBMIT_USER_OK');
             return {
                 ...state,
                 loading: false,
@@ -42,6 +44,9 @@ export const registerUserReducer = (state = initialSubmitUserState, action) => {
                 likes: action.likes,
                 dislikes: action.dislikes,
                 tagline: action.tagline,
+
+                longitude: action.longitude,
+                latitude: action.latitude,
             }
             break;
 

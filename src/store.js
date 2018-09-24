@@ -7,6 +7,7 @@ import reducers from './reducers/index';
 import { watcherRegisterUser } from './containers/registration-page/sagas';
 import { watcherGetLoginStatus } from './sagas';
 import { watcherUserLoggingIn } from './containers/login-page/sagas';
+import { watcherUpdateUserLocation } from './containers/map-page/sagas';
 import { watcherLoadNews } from './components/content-container/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -19,6 +20,7 @@ function* rootSaga() {
         watcherLoadNews(),
         watcherRegisterUser(),
         watcherUserLoggingIn(),
+        watcherUpdateUserLocation(),
     ])
 }
 

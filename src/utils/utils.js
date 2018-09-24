@@ -8,14 +8,19 @@ const setUniqueIdentifierDB = async (uid) => {
     }
 }
 
-const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislikes, tagline) => {
-    console.log('async storage | setting userId: ', userId);
-    console.log('async storage | setting passw: ', passw);
-    console.log('async storage | setting userName: ', userName);
-    console.log('async storage | setting email: ', email);
-    console.log('async storage | setting likes: ', likes);
-    console.log('async storage | setting dislikes: ', dislikes);
-    console.log('async storage | setting tagline: ', tagline);
+const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislikes, tagline, longitude, latitude) => {
+    // console.log('async storage | setting userId: ', userId);
+    // console.log('async storage | setting passw: ', passw);
+    // console.log('async storage | setting userName: ', userName);
+    // console.log('async storage | setting email: ', email);
+    // console.log('async storage | setting likes: ', likes);
+    // console.log('async storage | setting dislikes: ', dislikes);
+    // console.log('async storage | setting tagline: ', tagline);
+
+    // // adding in longitude / latitude
+    // console.log('async storage | setting longitude: ', longitude);
+    // console.log('async storage | setting latitude: ', latitude);
+
     try {
         await AsyncStorage.setItem('userId', userId);
         await AsyncStorage.setItem('userName', userName);
@@ -24,6 +29,9 @@ const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislik
         await AsyncStorage.setItem('likes', likes);
         await AsyncStorage.setItem('dislikes', dislikes);
         await AsyncStorage.setItem('tagline', tagline);
+        await AsyncStorage.setItem('longitude', longitude);
+        await AsyncStorage.setItem('latitude', latitude);
+
         console.log('Async Storage | all items set correctly');
         return true;
     } catch (error) {
@@ -41,7 +49,11 @@ const getUserAsyncStorage = async () => {
             let likes = await AsyncStorage.getItem('likes');
             let dislikes = await AsyncStorage.getItem('dislikes');
             let tagline = await AsyncStorage.getItem('tagline');
-            return { email, password, userId, userName, likes, dislikes, tagline };
+            let longitude = await AsyncStorage.getItem('longitude');
+            let latitude = await AsyncStorage.getItem('latitude');
+
+            console.log('Async Storage | all items retrieved correctly');
+            return { email, password, userId, userName, likes, dislikes, tagline, longitude, latitude };
 
         } catch (err) {
             console.log('getUserAsyncStorage err: ', err);
@@ -74,10 +86,23 @@ const destroyAsyncStorage = async () => {
     }
 }
 
+const refreshUserLocation = async () => {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition((res) => {
+            // resolve(res.coords); PROD
+            resolve({ latitude: 51.54609, longitude: -0.07424454, }) // MOCK
+        }, (err) => {
+            console.log(' :( fail | res coords: ', err);
+            reject(err);
+        })
+    })
+}
+
 
 export {
-    setUniqueIdentifierDB,
+    destroyAsyncStorage,
     getUserAsyncStorage,
     setUserAsyncStorage,
-    destroyAsyncStorage,
+    setUniqueIdentifierDB,
+    refreshUserLocation,
 }

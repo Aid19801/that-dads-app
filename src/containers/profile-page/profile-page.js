@@ -14,7 +14,6 @@ class ProfilePage extends Component {
     }
 
     render() {
-        console.log('this.props.TAGLINE: ', this.props.tagline);
 
         const { navigation, userName, email, password, likes, dislikes, tagline } = this.props;
         return (
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
 
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         alignContent: 'flex-end',
 
         borderWidth: 1,

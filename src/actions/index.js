@@ -38,3 +38,14 @@ export const LOADING_NEWS = 'LOADING_NEWS';
 export const LOADED_NEWS = 'LOADED_NEWS';
 export const LOAD_NEWS_FAIL = 'LOAD_NEWS_FAIL';
 
+// userLocation
+export const UPDATE_USER_LOCATION = 'UPDATE_USER_LOCATION';
+export const UPDATING_USER_LOCATION = 'UPDATING_USER_LOCATION';
+export const UPDATED_USER_LOCATION = 'UPDATED_USER_LOCATION';
+export const UPDATE_USER_LOCATION_FAIL = 'UPDATE_USER_LOCATION_FAIL';
+
+// mapLoading
+export const LOAD_MAP = 'LOAD_MAP';
+export const LOADING_MAP = 'LOADING_MAP';
+export const LOADED_MAP = 'LOADED_MAP';
+export const LOAD_MAP_FAIL = 'LOAD_MAP_FAIL';
