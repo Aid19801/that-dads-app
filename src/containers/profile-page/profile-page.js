@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, Platform, Image } from 'react-native';
 import { FooterNav } from '../../components/index';
 import { colorScheme } from '../../utils/colorscheme';
 import { connect } from 'react-redux';
-const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png';
+const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/harold.png';
 
 class ProfilePage extends Component {
     constructor() {
@@ -41,8 +41,8 @@ class ProfilePage extends Component {
                         <Text style={styles.likesIndividualText}>Dislikes: </Text><Text>{dislikes}</Text>
                     </View>
                 </View>
-                <View style={styles.photoTitleContainer}>
 
+                <View style={styles.photoTitleContainer}>
                     <View style={styles.photoContainer}>
                             <Image style={styles.image} source={require(avatar)} />
                     </View>
@@ -73,7 +73,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, null)(ProfilePage);
 
 const styles = StyleSheet.create({
-   
+
     container: {
         flex: 1,
         height: '100%',
@@ -85,19 +85,19 @@ const styles = StyleSheet.create({
         alignContent: 'flex-end',
 
         borderWidth: 1,
-        borderColor: 'black',
         backgroundColor: 'skyblue',
 
     },
     personalInfoContainer: {
-        // marginTop: 0,
         flexDirection: 'column',
-        borderWidth: 1,
-        borderColor: 'black',
+        marginTop: 20,
         width: 290,
         alignItems: 'center',
         justifyContent: 'flex-end',
         alignContent: 'flex-end',
+        borderWidth: 1,
+        borderColor: 'white',
+        backgroundColor: colorScheme.backgroundColorLight,
     },
     personalInfoIndividualRow: {
         flexDirection: 'row',
@@ -110,17 +110,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
         alignContent: 'flex-end',
+
+        borderWidth: 1,
+        borderColor: 'white',
+        backgroundColor: colorScheme.backgroundColorLight,
     },
     likesIndividualRow: {
         width: 290,
         flexWrap: 'wrap',
         flexDirection: 'row',
         marginBottom: 5, 
+        marginTop: 5, 
+        marginLeft: 5,
     },
     likesIndividualText: {
         paddingLeft: 15,
-        backgroundColor: 'darkblue',
-        width: 110,
+        backgroundColor: colorScheme.backgroundColorDark,
+        width: 90,
         borderColor: 'white',
         
         borderWidth: 1,
@@ -136,12 +142,54 @@ const styles = StyleSheet.create({
             }
         })
     },
+
     photoTitleContainer: {
-        alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 40,
+        width: '60%',
+        height: '30%',
     },
 
+    photoContainer: {
+        width: '100%',
+        borderColor: 'lightgrey',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colorScheme.backgroundColorDark,
+
+        paddingTop: 5,
+        paddingBottom: 5,
+        // paddingLeft: -5,
+        // paddingRight: -5,
+        borderRadius: 30,
+    },
+
+    image: {
+        borderWidth: 1,
+        borderColor: 'white',
+        borderRadius: 30,
+        width: '80%',
+        height: '100%',
+    },
+
+    tagline: {
+        textAlign: 'center',
+
+        ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter',
+                color: 'black',
+                fontSize: 15,
+                fontWeight: 'bold',
+            },
+            android: {
+                fontFamily: 'serif',
+                color: 'black',
+                fontSize: 15,
+                fontWeight: 'bold',
+            }
+        })
+    },
+    
     smallFont: {
         ...Platform.select({
             ios: {
@@ -172,29 +220,6 @@ const styles = StyleSheet.create({
                 fontSize: 25,
             }
         })
-    },
-
-    photoContainer: {
-        borderWidth: 2,
-        width: 130,
-        height: 130,
-        marginBottom: 10,
-        marginTop: 10,
-    },
-
-    image: {
-        borderWidth: 1,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'orange',
-        position: 'relative',
-        margin: 0,
-
-    },
-
-    tagline: {
-        fontStyle: 'italic',
-        textAlign: 'center',
     },
 
     nav: {

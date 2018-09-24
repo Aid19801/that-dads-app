@@ -4,6 +4,7 @@ import { RegistrationPage, LoginPage, MapPage, HomePage, ProfilePage, ChatPage }
 import { createStackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from './src/store';
+import profilePage from './src/containers/profile-page/profile-page';
 
 // RootStack
 const RootStack = createStackNavigator(
