@@ -1,12 +1,17 @@
 import React from 'react';
-import { AsyncStorage, TextInput, StyleSheet, Button, View , Image, Platform } from 'react-native';
-import { Text } from 'react-native';
+import { AsyncStorage, Text, TextInput,
+    StyleSheet, View , Image, Platform } from 'react-native';
+
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { colorScheme } from '../../utils/colorscheme';
 import { LogoContainer } from '../index';
+import { setUserId, destroyAsyncStorage } from '../../utils/utils';
 
 import { SUBMIT_USER } from '../../actions';
 import { connect } from 'react-redux';
 
-import { setUserId, destroyAsyncStorage } from '../../utils/utils';
 
 const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/avatar.png';
 
@@ -24,6 +29,7 @@ class RegistrationPage extends React.Component {
             tagline: '',
             userUpdated: false,
             pageOne: true,
+            pageFoo: false,
             pageTwo: false,
             pageThree: false,
         };
@@ -35,24 +41,13 @@ class RegistrationPage extends React.Component {
         }
     }
 
-    generateRandom = () => {
-        let randomNumber = Math.floor(Math.random() * 90000) + 10000
-        let randomUser = randomNumber.toString();
-        this.setState({ 
-            randomUser: randomUser,
-            email: `rnnn${randomUser}@net.com`,
-            password: `pw-randomUser`,
-            userName: `user-randomUser`,
-        });
-    }
-
     componentWillMount = () => {
-        this.generateRandom();
+
     }
     
     render() {
 
-        const { email, userName, password, likes, dislikes, tagline, pageOne, pageTwo, pageThree, randomUser } = this.state;
+        const { email, userName, password, likes, dislikes, tagline, pageOne, pageTwo, pageThree, pageFoo } = this.state;
 
         this.userIsAlreadySignedIn();
 
@@ -64,57 +59,68 @@ class RegistrationPage extends React.Component {
 
                     <TextInput
                         placeholder="email"
-                        // value={email}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ email: e })}
                     />
                     <TextInput
                         placeholder="username"
-                        // value={randomUser}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
-                        // value={password}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
                     />
+
+                    <Button 
+                        title='Next'
+                        titleStyle={{ color: "pink" }}
+                        buttonStyle={{
+                            backgroundColor: colorScheme.foregroundColorLight,
+
+                            borderColor: "transparent",
+                            borderWidth: 0,
+                            borderRadius: 5
+                        }}
+                        onPress={() => {
+                        this.setState({ pageOne: false, pageFoo: true })
+                    }} />
+
+
+                </View> }
+
+                { pageFoo && 
+                
+                <View>
                     <TextInput
                         placeholder="likes"
-                        // value={password}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ likes: e })}
                     />
                     <TextInput
                         placeholder="dislikes"
-                        // value={password}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ dislikes: e })}
                     />
 
                     <Button title='Next' onPress={() => {
-                        this.setState({ pageOne: false, pageTwo: true })
+                        this.setState({ pageFoo: false, pageTwo: true })
                     }} />
-
-                    <Button
-                        title='Destroy Async Data'
-                        onPress={() => { return destroyAsyncStorage() } } />
 
                 </View> }
 
                 { pageTwo && <View style={styles.photoTitleContainer}>
-
-                    <Text style={styles.photoTitleContainerText}>Your Photo</Text>
-                    <View style={styles.photoContainer}>
-                        <Image style={styles.image} source={require(avatar)} />
-                    </View>
-
+                    
                     <TextInput
                         placeholder="tagline"
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ tagline: e })}
                     />
+
+                    <View style={styles.photoContainer}>
+                        <Image style={styles.image} source={require(avatar)} />
+                    </View>
 
                     <Button title='Register User' onPress={() => {
                         this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
@@ -161,6 +167,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
 
 
 const styles = StyleSheet.create({
+    button: {
+        backgroundColor: "rgba(92, 99,216, 1)",
+        borderColor: "transparent",
+        height: 60,
+        width: 120,
+        borderWidth: 5,
+        color: "pink",
+    },
     activityIndicatorContainer: {
         backgroundColor: "#fff",
         alignItems: 'center',
@@ -212,7 +226,7 @@ const styles = StyleSheet.create({
 
     },
     textInput: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: colorScheme.backgroundColorLight,
         width: 280,
         height: 54,
         marginBottom: 15,
@@ -220,5 +234,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: 'black',
         fontSize: 20,
+
+
+        borderColor: colorScheme.backgroundColorDark,
+        borderWidth: 2,
     }
 });

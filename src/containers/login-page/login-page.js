@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Platform } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { USER_LOGGING_IN } from '../../actions/index';
 import { connect } from 'react-redux';
 
 import { getUserAsyncStorage } from '../../utils/utils';
+import { colorScheme } from '../../utils/colorscheme';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -33,9 +37,8 @@ class LoginPage extends Component {
 
         return (
             <View style={styles.container}>
-                <Text>LoginPage</Text>
-                <Text>{this.props.isLoggedIn}</Text>
-                <View>
+
+                <View style={styles.inputAndButtonContainer}>
 
                     <TextInput
                         placeholder="username"
@@ -51,7 +54,12 @@ class LoginPage extends Component {
                         onChangeText={(e) => this.setState({ password: e })}
                     />
 
-                    <Button title='Login' onPress={() => checkLogin(userName, password)} />
+                    <Button 
+                        title="Login"
+                        onPress={() => checkLogin(userName, password)}
+                        buttonStyle={styles.button}
+                    />
+
                     { isLoading && <Text style={styles.isLoading}>Loading...</Text> }
                 </View>
 
@@ -75,17 +83,39 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         alignItems: 'center',
+        borderColor: 'white', 
+        borderWidth: 2,
+    },
+    inputAndButtonContainer: {
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        alignContent: 'flex-end',
+    },
+    button: {
+        backgroundColor: "rgba(92, 99,216, 1)",
+        height: 60,
+        width: 120,
+        borderWidth: 2,
+        borderColor: 'white',
+        borderRadius: 5,
+        backgroundColor: "rgba(92, 99,216, 1)",
+
     },
     textInput: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: colorScheme.backgroundColorLight,
         width: 280,
         height: 54,
         marginBottom: 15,
         marginTop: 5,
         alignItems: 'center',
         color: 'black',
-        fontSize: 30,
+        fontSize: 20,
+
+
+        borderColor: colorScheme.backgroundColorDark,
+        borderWidth: 2,
     },
     isLoading: {
         textAlign: 'center',

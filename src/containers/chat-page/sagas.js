@@ -7,7 +7,7 @@ export function* watcherLoadChatPage() {
 
 export function* workerLoadChatPage() {
     console.log('WORKER SAGA CHAT PAGE FIRED');
-    yield put({ type: actions.LOADED_CHAT_PAGE });
+    yield put({ type: actions.LOADING_CHAT_PAGE });
     const url = 'https://that-dads-chat.herokuapp.com/api';
     let isLoaded = false;
     let chatMsgs = [];

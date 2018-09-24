@@ -25,7 +25,8 @@ class ChatPage extends Component {
 
     componentWillReceiveProps(nextProps) {
         let { chatMsgs } = nextProps;
-        console.log('YAY IS THIS WORKING > chat msgs: ', chatMsgs);
+        console.log(' WTF1:  ', this.props.isLoading)
+        console.log(' WTF2:  ', nextProps.isLoading)
         this.setState({
             chatMsgs,
         })
@@ -38,14 +39,12 @@ class ChatPage extends Component {
 
     render() {
 
-        const { chatMsgs } = this.state;
+        const { chatMsgs } = this.state || []
         const { isLoading } = this.props;
 
 
         if (isLoading) {
-            return (
-                <Text>Loading, just be patient for gods sake...</Text>
-            )
+            return <Text>Loading...</Text>
         }
 
         return (
@@ -78,7 +77,7 @@ class ChatPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    isLoading: state.chatPageReducer.loading,
+    isLoading: state.chatPageReducer.isLoading,
     chatMsgs: state.chatPageReducer.chatMsgs,
 });
 
@@ -110,11 +109,14 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
     textInput: {
-        backgroundColor: 'lightgrey',
         width: '70%',
         height: 54,
         color: 'black',
         fontSize: 20,
+
+        backgroundColor: colorScheme.backgroundColorLight,
+        borderColor: colorScheme.backgroundColorDark,
+        borderWidth: 2,
     },
     nav: {
         width: '100%',

@@ -34,7 +34,7 @@ const RootStack = createStackNavigator(
       }
     },
     Landing: {
-      screen: LoginPage,
+      screen: LandingPage,
       navigationOptions: {
         title: '',
         headerLeft: null,
