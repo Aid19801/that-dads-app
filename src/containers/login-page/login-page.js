@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderRadius: 5,
         backgroundColor: "rgba(92, 99,216, 1)",
-
     },
     textInput: {
         backgroundColor: colorScheme.backgroundColorLight,

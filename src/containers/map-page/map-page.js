@@ -6,6 +6,18 @@ import { UPDATE_USER_LOCATION, LOAD_MAP } from '../../actions';
 import { colorScheme } from '../../utils/colorscheme';
 
 class MapPage extends Component {
+
+    static navigationOptions = {
+        title: '#localDads',
+        headerStyle: {
+            backgroundColor: colorScheme.midlevelColor,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+
     constructor(props) {
         super(props);
         this.state = {};

@@ -6,6 +6,19 @@ import { colorScheme } from '../../utils/colorscheme';
 import { Button } from 'react-native-elements';
 
 class HomePage extends React.Component {
+
+
+    static navigationOptions = {
+        title: '#thatDadsApp',
+        headerStyle: {
+            backgroundColor: colorScheme.midlevelColor,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+    
     constructor(props) {
         super(props);
         this.state = {};

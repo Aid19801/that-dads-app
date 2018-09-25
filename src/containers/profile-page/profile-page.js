@@ -6,6 +6,32 @@ import { connect } from 'react-redux';
 const avatar = '/Users/adrianthompson/Documents/projects/that-dads-app/src/utils/harold.png';
 
 class ProfilePage extends Component {
+
+    static navigationOptions = {
+        title: '#profile',
+        headerStyle: {
+            backgroundColor: colorScheme.midlevelColor,
+            // alignItems: 'center',
+            // justifyContent: 'space-between',
+            // alignContent: 'flex-end',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            color: 'white',
+            fontSize: 15,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            ...Platform.select({
+                ios: {
+                    fontFamily: 'American Typewriter',
+                },
+                android: {
+                    fontFamily: 'serif',
+                }
+            })
+        },
+    };
+
     constructor() {
         super();
         this.state = {
@@ -35,10 +61,10 @@ class ProfilePage extends Component {
 
                 <View style={styles.likesDislikesContainer}>
                     <View style={styles.likesIndividualRow}>
-                        <Text style={styles.likesIndividualText}>Likes: </Text><Text>{likes}</Text>
+                        <Text style={styles.likesIndividualText}>Likes: </Text><Text>"Its better to have loved and lost than never to have loved at all..."</Text>
                     </View>
                     <View style={styles.likesIndividualRow}>
-                        <Text style={styles.likesIndividualText}>Dislikes: </Text><Text>{dislikes}</Text>
+                        <Text style={styles.likesIndividualText}>Dislikes: </Text><Text>"Its better to have loved and lost than never to have loved at all..."</Text>
                     </View>
                 </View>
 
@@ -46,7 +72,7 @@ class ProfilePage extends Component {
                     <View style={styles.photoContainer}>
                             <Image style={styles.image} source={require(avatar)} />
                     </View>
-                    <Text style={styles.tagline}>"{tagline}..."</Text>
+                    <Text style={styles.tagline}>"Its better to have loved and lost than never to have loved at all..."</Text>
                 </View>
 
                     
@@ -114,6 +140,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'white',
         backgroundColor: colorScheme.backgroundColorLight,
+
+        ...Platform.select({
+            android: {
+                width: 325,
+            }
+        })
     },
     likesIndividualRow: {
         width: 290,
@@ -146,6 +178,14 @@ const styles = StyleSheet.create({
     photoTitleContainer: {
         width: '60%',
         height: '30%',
+
+        ...Platform.select({
+            android: {
+                alignItems: 'center',
+                justifyContent: 'center',
+                alignContent: 'center',
+            }
+        }),
     },
 
     photoContainer: {
@@ -186,6 +226,7 @@ const styles = StyleSheet.create({
                 color: 'black',
                 fontSize: 15,
                 fontWeight: 'bold',
+                width: '150%',
             }
         })
     },

@@ -22,35 +22,30 @@ const RootStack = createStackNavigator(
     Map: {
       screen: MapPage,
       navigationOptions: {
-        title: "#localDads",
         headerLeft: null,
       }
     },
     Chat: {
       screen: ChatPage,
       navigationOptions: {
-        title: "#chat",
         headerLeft: null,
       }
     },
     Landing: {
       screen: LandingPage,
       navigationOptions: {
-        title: '',
         headerLeft: null,
       }
     },
     Profile: {
       screen: ProfilePage,
       navigationOptions: {
-        title: "#profile",
         headerLeft: null,
       }
     },
     Home: {
       screen: HomePage,
       navigationOptions: {
-        title: "#thatDadsApp",
         headerLeft: null,
       }
     }

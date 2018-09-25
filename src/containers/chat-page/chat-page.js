@@ -10,6 +10,18 @@ import { colorScheme } from '../../utils/colorscheme';
 import { mockMsgs } from '../../mocks/msgs';
 
 class ChatPage extends Component {
+
+    static navigationOptions = {
+        title: '#chat',
+        headerStyle: {
+            backgroundColor: colorScheme.midlevelColor,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+
     constructor(props) {
         super(props);
         this.state = {

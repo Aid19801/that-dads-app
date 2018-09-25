@@ -59,6 +59,7 @@ class RegistrationPage extends React.Component {
 
                     <TextInput
                         placeholder="email"
+                        underlineColorAndroid="rgba(0,0,0,0)"
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ email: e })}
                     />
@@ -78,9 +79,8 @@ class RegistrationPage extends React.Component {
                         titleStyle={{ color: "pink" }}
                         buttonStyle={{
                             backgroundColor: colorScheme.foregroundColorLight,
-
-                            borderColor: "transparent",
-                            borderWidth: 0,
+                            borderColor: "white",
+                            borderWidth: 2,
                             borderRadius: 5
                         }}
                         onPress={() => {
@@ -104,9 +104,17 @@ class RegistrationPage extends React.Component {
                         onChangeText={(e) => this.setState({ dislikes: e })}
                     />
 
-                    <Button title='Next' onPress={() => {
-                        this.setState({ pageFoo: false, pageTwo: true })
-                    }} />
+                    <Button
+                        title='Next'
+                        buttonStyle={{
+                            backgroundColor: colorScheme.foregroundColorLight,
+                            borderColor: "white",
+                            borderWidth: 2,
+                            borderRadius: 5
+                        }}
+                        onPress={() => {
+                            this.setState({ pageFoo: false, pageTwo: true })
+                        }} />
 
                 </View> }
 
@@ -122,10 +130,19 @@ class RegistrationPage extends React.Component {
                         <Image style={styles.image} source={require(avatar)} />
                     </View>
 
-                    <Button title='Register User' onPress={() => {
-                        this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
-                        this.props.registerUser(email, userName, password, likes, dislikes, tagline);
-                    }} />
+
+                    <Button
+                        title='Register User'
+                        buttonStyle={{
+                            backgroundColor: colorScheme.foregroundColorLight,
+                            borderColor: "white",
+                            borderWidth: 2,
+                            borderRadius: 5
+                        }}
+                        onPress={() => {
+                            this.setState({ userUpdated: true, pageOne: false, pageTwo: false, pageThree: true });    
+                            this.props.registerUser(email, userName, password, likes, dislikes, tagline);
+                        }} />
 
                 </View> }
 
@@ -134,6 +151,12 @@ class RegistrationPage extends React.Component {
                         <Text style={styles.photoTitleContainerText}>Thank you for registering!</Text>
                         <Button
                             title='Login?'
+                            buttonStyle={{
+                                backgroundColor: colorScheme.foregroundColorLight,
+                                borderColor: "white",
+                                borderWidth: 2,
+                                borderRadius: 5
+                            }}
                             onPress={() => {
                                 this.props.navigation.navigate('Login');
                             }}
@@ -169,7 +192,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
 const styles = StyleSheet.create({
     button: {
         backgroundColor: "rgba(92, 99,216, 1)",
-        borderColor: "transparent",
+        borderWidth: 2,
+        borderColor: 'white',
         height: 60,
         width: 120,
         borderWidth: 5,
