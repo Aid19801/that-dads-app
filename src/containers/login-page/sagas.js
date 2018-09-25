@@ -21,14 +21,16 @@ export function* workerUserLoggingIn(actionObject) {
     let dislikes = yield call(AsyncStorage.getItem, 'dislikes');
     let tagline = yield call(AsyncStorage.getItem, 'tagline');
     
+    // adding in long/lat for map page.
+    let longitude = yield call(AsyncStorage.getItem, 'longitude');
+    let latitude = yield call(AsyncStorage.getItem, 'latitude');
+
     try {
 
         console.log('URL is: ',`${url}/${userId}`);
         yield fetch(`${url}/${userId}`)
             .then(res => res.json())
             .then(json => {
-
-                console.log('json response: ', json);
                 password === json.password ? isLoggedin = true : isLoggedIn = false;
                 userName === json.userName ? isLoggedin = true : isLoggedIn = false;
                 if (password !== json.password)  {
@@ -45,5 +47,5 @@ export function* workerUserLoggingIn(actionObject) {
     } catch (error) {
         console.log('workerUserLoggingIn error: ', error);
     }
-    isLoggedIn ? yield put({ type: USER_LOGGED_IN, email, userName, password, userId, likes, dislikes, tagline }) : yield put({ type: USER_LOGIN_FAIL });
+    isLoggedIn ? yield put({ type: USER_LOGGED_IN, email, userName, password, userId, likes, dislikes, tagline, longitude, latitude }) : yield put({ type: USER_LOGIN_FAIL });
 }

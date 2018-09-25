@@ -15,8 +15,8 @@ class Footer extends React.Component {
         return (
             <View style={styles.container}>
                 <NavButton buttonTitle="Home" name="home" navigate={navigate} />
-                <NavButton buttonTitle="Chat" name="chat" />
-                <NavButton buttonTitle="Place" name="place" />
+                <NavButton buttonTitle="Chat" name="chat" navigate={navigate} />
+                <NavButton buttonTitle="Map" name="place" navigate={navigate} />
                 <NavButton buttonTitle="Profile" name="person" navigate={navigate} />
             </View>
         );

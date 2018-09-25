@@ -4,6 +4,8 @@ import { CHECK_LOGIN_STATUS, USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT } 
 let initialState = {
     isLoggedIn: false,
     userName: '',
+    longitude: '',
+    latitude: '',
     password: '',
     userId: '',
     likes: '',
@@ -48,6 +50,9 @@ export const loginStatusReducer = (state = initialState, action) => {
                 likes: action.likes,
                 dislikes: action.dislikes,
                 tagline: action.tagline,
+
+                longitude: action.longitude,
+                latitude: action.latitude, 
             }
             break;
 

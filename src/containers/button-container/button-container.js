@@ -18,14 +18,14 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'row',
-        borderColor: colorScheme.backgroundColorDark,
-        borderRadius: 25,
-        borderColor: 'grey',
+        borderRadius: 30,
         marginTop: 30,
         paddingTop: 30,
         paddingBottom: 30,
-        width: 340,
+        width: '100%',
         justifyContent: 'center',
         backgroundColor: colorScheme.backgroundColorLight,
+        borderWidth: 2,
+        borderColor: 'white',
     },
 });

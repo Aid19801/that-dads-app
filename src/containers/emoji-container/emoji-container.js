@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        borderWidth: 2,
-        borderColor: 'black',
         width: 300,
         height: 200,
+        borderWidth: 4,
+        borderColor: 'white',
     },
 
 

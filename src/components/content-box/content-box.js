@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(26, 26, 89, 0.4)',
     },
     title: {
-        fontSize: 30,
+        fontSize: 25,
         color: 'white',
         flexWrap: 'wrap',
         width: '50%',
