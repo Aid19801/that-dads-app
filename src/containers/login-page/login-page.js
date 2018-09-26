@@ -42,14 +42,12 @@ class LoginPage extends Component {
 
                     <TextInput
                         placeholder="username"
-                        value={this.state.userName}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
                         secureTextEntry={true}
-                        value={this.state.password || ''}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
                     />

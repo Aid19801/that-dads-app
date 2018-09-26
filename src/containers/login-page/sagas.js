@@ -27,23 +27,26 @@ export function* workerUserLoggingIn(actionObject) {
 
     try {
 
-        console.log('URL is: ',`${url}/${userId}`);
-        yield fetch(`${url}/${userId}`)
+        yield fetch(url)
             .then(res => res.json())
             .then(json => {
-                password === json.password ? isLoggedin = true : isLoggedIn = false;
-                userName === json.userName ? isLoggedin = true : isLoggedIn = false;
-                if (password !== json.password)  {
-                    alert('WRONG PASSWORD');
-                    return isLoggedIn = false;
-                }
-                if (userName !== json.userName)  {
-                    alert('WRONG USERNAME');
+                console.log('1. JSON: ', json.length);
+                let specificUser = json.filter(each => each.userName === userName)[0];
+                
+                console.log('Does specificUser match password? ', specificUser.password == password);
+
+                const loginStatus = password == specificUser.password ? isLoggedin = true : isLoggedIn = false;
+                
+                console.log('3. isLoggedIn? : ', isLoggedIn);
+                console.log('3. loginStatus? : ', loginStatus);
+
+                if (!loginStatus)  {
+                    alert('Your password is wrong :(');
                     return isLoggedIn = false;
                 }
                 return isLoggedIn = true;
             })
-            .catch(err => console.log('pw match error: ', err))
+            .catch(err => console.log('saga | password match error: ', err))
     } catch (error) {
         console.log('workerUserLoggingIn error: ', error);
     }
