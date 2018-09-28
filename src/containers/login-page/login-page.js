@@ -42,11 +42,13 @@ class LoginPage extends Component {
 
                     <TextInput
                         placeholder="username"
+                        underlineColorAndroid="rgba(0,0,0,0)"
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
+                        underlineColorAndroid="rgba(0,0,0,0)"
                         secureTextEntry={true}
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}

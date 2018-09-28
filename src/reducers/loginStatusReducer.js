@@ -37,7 +37,7 @@ export const loginStatusReducer = (state = initialState, action) => {
         break;
 
         case USER_LOGGED_IN:
-            console.log('USER_LOGGED_IN');
+            console.log('USER_LOGGED_IN: ', action);
             return {
                 ...state,
                 isLoggedIn: true,

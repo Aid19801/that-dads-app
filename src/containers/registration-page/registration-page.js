@@ -65,11 +65,13 @@ class RegistrationPage extends React.Component {
                     />
                     <TextInput
                         placeholder="username"
+                        underlineColorAndroid="rgba(0,0,0,0)"
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ userName: e })}
                     />
                     <TextInput
                         placeholder="password"
+                        underlineColorAndroid="rgba(0,0,0,0)"
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ password: e })}
                     />
@@ -95,11 +97,13 @@ class RegistrationPage extends React.Component {
                 <View>
                     <TextInput
                         placeholder="likes"
+                        underlineColorAndroid="rgba(0,0,0,0)"
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ likes: e })}
                     />
                     <TextInput
                         placeholder="dislikes"
+                        underlineColorAndroid="rgba(0,0,0,0)"
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ dislikes: e })}
                     />
@@ -122,6 +126,7 @@ class RegistrationPage extends React.Component {
                     
                     <TextInput
                         placeholder="tagline"
+                        underlineColorAndroid="rgba(0,0,0,0)"
                         style={styles.textInput}
                         onChangeText={(e) => this.setState({ tagline: e })}
                     />

@@ -61,10 +61,10 @@ class ProfilePage extends Component {
 
                 <View style={styles.likesDislikesContainer}>
                     <View style={styles.likesIndividualRow}>
-                        <Text style={styles.likesIndividualText}>Likes: </Text><Text>"Its better to have loved and lost than never to have loved at all..."</Text>
+                        <Text style={styles.likesIndividualText}>Likes: </Text><Text>{likes}</Text>
                     </View>
                     <View style={styles.likesIndividualRow}>
-                        <Text style={styles.likesIndividualText}>Dislikes: </Text><Text>"Its better to have loved and lost than never to have loved at all..."</Text>
+                        <Text style={styles.likesIndividualText}>Dislikes: </Text><Text>{dislikes}</Text>
                     </View>
                 </View>
 
@@ -72,7 +72,7 @@ class ProfilePage extends Component {
                     <View style={styles.photoContainer}>
                             <Image style={styles.image} source={require(avatar)} />
                     </View>
-                    <Text style={styles.tagline}>"Its better to have loved and lost than never to have loved at all..."</Text>
+                    <Text style={styles.tagline}>{tagline}</Text>
                 </View>
 
                     

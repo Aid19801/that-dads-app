@@ -40,6 +40,25 @@ const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislik
     }
 };
 
+const updateAsyncWithUserInformation = async (obj) => {
+    try {
+        await AsyncStorage.setItem('userId', obj._id);
+        await AsyncStorage.setItem('userName', obj.userName);
+        await AsyncStorage.setItem('password', obj.password);
+        await AsyncStorage.setItem('email', obj.email);
+        await AsyncStorage.setItem('likes', obj.likes);
+        await AsyncStorage.setItem('dislikes', obj.dislikes);
+        await AsyncStorage.setItem('tagline', obj.tagline);
+        await AsyncStorage.setItem('longitude', obj.longitude);
+        await AsyncStorage.setItem('latitude', obj.latitude);
+
+        console.log('all items stored correctly!');
+
+    } catch(err) {
+        console.log('async await fail: ', err);
+    }
+}
+
 const getUserAsyncStorage = async () => {
         try {
             let email = await AsyncStorage.getItem('email');
@@ -105,4 +124,6 @@ export {
     setUserAsyncStorage,
     setUniqueIdentifierDB,
     refreshUserLocation,
+
+    updateAsyncWithUserInformation,
 }
