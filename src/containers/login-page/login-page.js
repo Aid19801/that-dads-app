@@ -33,38 +33,73 @@ class LoginPage extends Component {
     render() {
 
         const { userName, password } = this.state;
-        const { checkLogin, isLoading } = this.props;
+        const { checkLogin, isLoading, isLoggedIn } = this.props;
 
-        return (
-            <View style={styles.container}>
 
-                <View style={styles.inputAndButtonContainer}>
+        if (isLoggedIn) {
 
-                    <TextInput
-                        placeholder="username"
-                        underlineColorAndroid="rgba(0,0,0,0)"
-                        style={styles.textInput}
-                        onChangeText={(e) => this.setState({ userName: e })}
-                    />
-                    <TextInput
-                        placeholder="password"
-                        underlineColorAndroid="rgba(0,0,0,0)"
-                        secureTextEntry={true}
-                        style={styles.textInput}
-                        onChangeText={(e) => this.setState({ password: e })}
-                    />
+            return (
 
-                    <Button 
-                        title="Login"
-                        onPress={() => checkLogin(userName, password)}
-                        buttonStyle={styles.button}
-                    />
+                <View style={styles.container}>
+                    <View style={styles.inputAndButtonContainer}>
+                        <TextInput
+                            placeholder="username"
+                            value={userName}
+                            underlineColorAndroid="rgba(0,0,0,0)"
+                            style={styles.textInput}
+                            onChangeText={(e) => this.setState({ userName: e })}
+                        />
+                        <TextInput
+                            placeholder="password"
+                            value={password}
+                            underlineColorAndroid="rgba(0,0,0,0)"
+                            secureTextEntry={true}
+                            style={styles.textInput}
+                            onChangeText={(e) => this.setState({ password: e })}
+                        />
 
-                    { isLoading && <Text style={styles.isLoading}>Loading...</Text> }
+                        <Button
+                            title="Login"
+                            onPress={() => checkLogin(userName, password)}
+                            buttonStyle={styles.button}
+                        />
+
+                        {isLoading && <Text style={styles.isLoading}>Loading...</Text>}
+                    </View>
+
                 </View>
+            )
+        } else {
+            return (
+                <View style={styles.container}>
 
-            </View>
-        );
+                    <View style={styles.inputAndButtonContainer}>
+                        <TextInput
+                            placeholder="username"
+                            underlineColorAndroid="rgba(0,0,0,0)"
+                            style={styles.textInput}
+                            onChangeText={(e) => this.setState({ userName: e })}
+                        />
+                        <TextInput
+                            placeholder="password"
+                            underlineColorAndroid="rgba(0,0,0,0)"
+                            secureTextEntry={true}
+                            style={styles.textInput}
+                            onChangeText={(e) => this.setState({ password: e })}
+                        />
+
+                        <Button 
+                            title="Login"
+                            onPress={() => checkLogin(userName, password)}
+                            buttonStyle={styles.button}
+                        />
+
+                        { isLoading && <Text style={styles.isLoading}>Loading...</Text> }
+                    </View>
+
+                </View>
+            );
+        }
     }
 }
 
