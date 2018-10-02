@@ -29,6 +29,7 @@ to do
 ## Build generated
 build/
 DerivedData/
+*android/keystores/debug.keystore.properties
 
 ## Various settings
 *.pbxuser
