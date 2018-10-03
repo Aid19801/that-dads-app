@@ -20,7 +20,7 @@ Messages are posted on an ever changing JSON server. This is simple JSON, served
 
 --
 
-## Project/Tech Deets
+# Project/Tech Deets
 
-Built with React Native | Redux | Jest | json-server | Heroku | Android Studio | Visual Studio
+Built with React Native | Redux | Jest | json-server | Heroku | Android Studio | Xcode | VScode
 
