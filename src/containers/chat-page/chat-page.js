@@ -37,8 +37,9 @@ class ChatPage extends Component {
 
     componentWillReceiveProps(nextProps) {
         let { chatMsgs } = nextProps;
-        console.log(' WTF1:  ', this.props.isLoading)
-        console.log(' WTF2:  ', nextProps.isLoading)
+        // console.log('WTF1:  ', this.props.isLoading)
+        // console.log('WTF2:  ', nextProps.isLoading)
+        console.log('Chat msgs:  ', chatMsgs);
         this.setState({
             chatMsgs,
         })
@@ -64,7 +65,7 @@ class ChatPage extends Component {
 
                 <View style={styles.chatRowsContainer}>
                     { chatMsgs.map((each, i) => (
-                        <ChatMsg key={i} userName={each.userName} chatMsgText={each.msgText}  />
+                        <ChatMsg key={i} userName={each.userName} chatMsgText={each.message}  />
                     )) }
                 </View>
 

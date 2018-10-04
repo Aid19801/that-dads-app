@@ -7,7 +7,7 @@ export function* watcherLoadChatPage() {
 
 export function* workerLoadChatPage() {
     yield put({ type: actions.LOADING_CHAT_PAGE });
-    const url = 'https://that-dads-chat.herokuapp.com/api';
+    const url = 'https://that-dads-chat-log.herokuapp.com/';
     let isLoaded = false;
     let chatMsgs = [];
 
@@ -17,9 +17,8 @@ export function* workerLoadChatPage() {
         yield fetch(`${url}`)
             .then(res => res.json())
             .then(json => {
-                json.mocks.length > 0 ? isLoaded = true : isLoaded = false;
-                chatMsgs = json.mocks;
-                console.log(' saga   oisf =======>> ', chatMsgs.length);
+                json.length > 0 ? isLoaded = true : isLoaded = false;
+                chatMsgs = json;
                 return;
             })
             .catch(err => console.log('saga | chat api error: ', err));
