@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Platform, FlatList } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
@@ -25,59 +25,34 @@ class ChatPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newMessage: '',
-            chatMsgs: [],
+            messagesPopulated: false,
         }
     }
 
-    renderMessages = () => {
-        
-    };
 
 
-    componentWillReceiveProps(nextProps) {
-        let { chatMsgs } = nextProps;
-        // console.log('WTF1:  ', this.props.isLoading)
-        // console.log('WTF2:  ', nextProps.isLoading)
-        console.log('Chat msgs:  ', chatMsgs);
-        this.setState({
-            chatMsgs,
-        })
+    showSpinnerOrMessages = () => {
+        const { isLoading, chatMsgs } = this.props;
+        if (isLoading) {
+            console.log('Spinner Showing');
+            return <Text> Spinner Here </Text>
+        } else {
+            return <Text>messages</Text>
+        }
     }
-
 
     componentWillMount = () => {
         this.props.loadChatPage();
     };
 
+
     render() {
-
-        const { chatMsgs } = this.state || []
-        const { isLoading } = this.props;
-
-
-        if (isLoading) {
-            return <Text>Loading...</Text>
-        }
 
         return (
             <View style={styles.container}>
-
-                <View style={styles.chatRowsContainer}>
-                    { chatMsgs.map((each, i) => (
-                        <ChatMsg key={i} userName={each.userName} chatMsgText={each.message}  />
-                    )) }
-                </View>
-
-                <View style={styles.textInputContainer}>
-                    <TextInput
-                        placeholder="type msg here"
-                        value={this.state.newMessage || ''}
-                        style={styles.textInput}
-                        onChangeText={(e) => this.setState({ newMessage: e })}
-                    />
-
-                    <Button color="white" backgroundColor="blue" style={styles.button} title='submit' onPress={() => checkLogin(userName, password)} />
+                
+                <View style={styles.messagesContainer}>
+                    {this.showSpinnerOrMessages()}
                 </View>
 
                 <View style={styles.nav}>
@@ -95,7 +70,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    loadChatPage: () => dispatch({ type: actions.LOAD_CHAT_PAGE })
+    loadChatPage: () => dispatch({ type: actions.LOAD_CHAT_PAGE }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
@@ -107,30 +82,19 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-    },
 
-    chatRowsContainer: {
-        borderWidth: 1,
-        borderColor: 'pink',
-        width: 300,
-        height: 'auto',
-    },
-
-    textInputContainer: {
-        flexDirection: 'row',
-        width: 280,
-        paddingTop: 10,
-    },
-    textInput: {
-        width: '70%',
-        height: 54,
-        color: 'black',
-        fontSize: 20,
-
-        backgroundColor: colorScheme.backgroundColorLight,
-        borderColor: colorScheme.backgroundColorDark,
         borderWidth: 2,
+        borderColor: 'black',
     },
+
+    messagesContainer: {
+
+        width: '100%',
+        height: '70%',
+        borderWidth: 2,
+        borderColor: 'gold',
+    },
+
     nav: {
         width: '100%',
         height: '11%',

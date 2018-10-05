@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Platform, AsyncStorage } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,10 +21,13 @@ class LoginPage extends Component {
 
     componentDidMount = async () => {
         const { userName, password } = await getUserAsyncStorage();
+        console.log('username from asyncStorage: ', userName);
         this.setState({ userName, password });
     }
 
     componentWillReceiveProps = (nextProps) => {
+
+        console.log('username from CWRP nextProps: ', nextProps.userName);
         if (nextProps.isLoggedIn) {
             nextProps.navigation.navigate('Home');
         }
@@ -38,6 +41,7 @@ class LoginPage extends Component {
 
         if (isLoggedIn) {
 
+            console.log('User is logged in: ', userName);
             return (
 
                 <View style={styles.container}>

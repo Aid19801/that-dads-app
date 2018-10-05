@@ -1,5 +1,6 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { LOAD_NEWS, LOADING_NEWS, LOADED_NEWS, LOAD_NEWS_FAIL } from '../../actions/index'
+import * as constants from '../../reducers/constants';
 
 export function* watcherLoadNews() {
     yield takeLatest(LOAD_NEWS, workerLoadNews);
@@ -17,7 +18,7 @@ export function* workerLoadNews() {
         // isLoaded = true;
 
         // ++++ if online use this:-
-        yield fetch(`${url}`)
+        yield fetch(constants.NEWS_FEED_API)
             .then(res => res.json())
             .then(json => {
                 json.length > 0 ? isLoaded = true : isLoaded = false;

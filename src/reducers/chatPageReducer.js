@@ -1,8 +1,9 @@
 import * as actions from '../actions';
 
 let initialState = {
-    isLoading: false,
+    isLoading: true,
     isError: null,
+    chatMsgs: [],
 };
 
 export const chatPageReducer = (state = initialState, action) => {
@@ -11,7 +12,7 @@ export const chatPageReducer = (state = initialState, action) => {
             console.log('LOAD_CHAT_PAGE');
             return {
                 ...state,
-                isLoading: false,
+                isLoading: true,
             }
             break;
 
@@ -74,6 +75,35 @@ export const chatPageReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isError: action.error,
+            }
+            break;
+
+        case actions.CHECK_FOR_NEW_MESSAGES:
+            console.log('CHECK_FOR_NEW_MESSAGES');
+            return {
+                ...state,
+            }
+            break;
+
+        case actions.CHECKING_FOR_NEW_MESSAGES:
+            console.log('CHECKING_FOR_NEW_MESSAGES');
+            return {
+                ...state,
+            }
+            break;
+
+        case actions.RECEIVED_NEW_MESSAGES:
+            console.log('RECEIVED_NEW_MESSAGES');
+            return {
+                ...state,
+                chatMsgs: action.chatMsgs
+            }
+            break;
+
+        case actions.NO_NEW_MESSAGES:
+            console.log('NO_NEW_MESSAGES');
+            return {
+                ...state,
             }
             break;
 

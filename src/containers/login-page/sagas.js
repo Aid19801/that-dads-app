@@ -23,6 +23,12 @@ export function* workerUserLoggingIn(actionObject) {
 
                 if (specificUser.password) {
                     isLoggedIn = true;
+                    console.log('setting.');
+
+                    AsyncStorage.setItem('userName', userName);
+                    AsyncStorage.setItem('password', password);
+                    console.log('set.');
+
                 }
 
                 if (json.length <= 1) {
