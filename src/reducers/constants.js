@@ -9,3 +9,7 @@ export const APP_DISCONNECTED = 'APP_DISCONNECTED';
 // user login status
 export const CHECK_LOGIN_STATUS = 'CHECK_LOGIN_STATUS';
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
+
+// API / endpoints
+export const CHAT_LOG_API = 'https://that-dads-chat-log.herokuapp.com/';
+export const NEWS_FEED_API = 'https://dads-scraper.herokuapp.com/';

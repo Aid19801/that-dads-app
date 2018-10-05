@@ -71,7 +71,7 @@ const getUserAsyncStorage = async () => {
             let longitude = await AsyncStorage.getItem('longitude');
             let latitude = await AsyncStorage.getItem('latitude');
 
-            console.log('Async Storage | all items retrieved correctly');
+            console.log('Async Storage | all items retrieved correctly: ', userName);
             return { email, password, userId, userName, likes, dislikes, tagline, longitude, latitude };
 
         } catch (err) {

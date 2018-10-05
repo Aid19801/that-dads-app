@@ -11,6 +11,7 @@ import { watcherUpdateUserLocation } from './containers/map-page/sagas';
 import { watcherLoadNews } from './components/content-container/sagas';
 import { watcherLoadChatPage } from './containers/chat-page/sagas';
 
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(reducers, applyMiddleware(sagaMiddleware));

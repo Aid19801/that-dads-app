@@ -1,7 +1,9 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
 # expo
 .expo/
+things to sort
+
+# stuff
+/android/.idea/*
 
 # dependencies
 /node_modules

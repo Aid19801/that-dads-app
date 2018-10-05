@@ -2,56 +2,30 @@ import React from 'react';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 
 export const ChatMsg = (props) => (
-    <View style={styles.chatMsgContainer}>
-
-        <View style={styles.handleContainer}>
-            <Text style={styles.handleText}>{props.userName}</Text>
-        </View>
-        <Text style={styles.chatMsgText}>{props.chatMsgText}</Text>
+    <View style={styles.container}>
+        <Text style={styles.userNameText}>{props.userName}</Text>
+        <Text style={styles.text}>{props.message}</Text>
     </View>
 );
 
 const styles = StyleSheet.create({
-    chatMsgContainer: {
+    container: {
+        flexWrap: 'wrap',
         flexDirection: 'row',
-        width: '100%',
+        width: '90%',
+        height: 'auto',
+        marginRight: 10,
+        marginLeft: 10,
+
         borderWidth: 1,
         borderColor: 'blue',
     },
-    handleContainer: {
-        width: '15%',
+    userNameText: {
+        fontSize: 10,
+        fontWeight: 'bold',
     },
-    handleText: {
-        fontSize: 8,
-        width: '100%',
-        height: 'auto',
-        marginTop: '15%',
-        marginLeft: '7%',
-        transform: [{ rotate: '-20deg' }],
-        alignItems: 'center',
-
-        ...Platform.select({
-            ios: {
-                fontFamily: 'American Typewriter',
-            },
-            android: {
-                fontFamily: 'monospace',
-            }
-        }),
-    },
-    chatMsgText: {
-        fontSize: 17,
-        flex: 1, flexWrap: 'wrap',
-        ...Platform.select({
-            ios: {
-                fontFamily: 'American Typewriter',
-            },
-            android: {
-                fontFamily: 'monospace',
-            }
-        }),
-        borderWidth: 1,
-        borderColor: 'skyblue',
+    text: {
+        fontSize: 25,
     }
 });
 
