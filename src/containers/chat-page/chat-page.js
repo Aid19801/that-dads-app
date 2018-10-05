@@ -30,14 +30,20 @@ class ChatPage extends Component {
     }
 
 
-
     showSpinnerOrMessages = () => {
         const { isLoading, chatMsgs } = this.props;
         if (isLoading) {
             console.log('Spinner Showing');
             return <Text> Spinner Here </Text>
         } else {
-            return <Text>messages</Text>
+            return <FlatList
+                        inverted
+                        data={chatMsgs.reverse()}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, i }) =>
+                            <ChatMsg key={i} userName={item.userName} message={item.message} />
+                        }
+                    />
         }
     }
 
