@@ -1,85 +1,62 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Platform, FlatList } from 'react-native';
-import { Button } from 'react-native-elements';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
+
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import { FooterNav } from '../../components/index';
 import { ChatMsg } from './chat-msg';
 import { colorScheme } from '../../utils/colorscheme';
-import { mockMsgs } from '../../mocks/msgs';
+import { Button } from 'react-native-elements';
+
+
+const ChatMessagesQuery = gql`
+  query messages {
+    messages {
+      message
+      userName
+    }
+  }
+`;
 
 class ChatPage extends Component {
-
-    static navigationOptions = {
-        title: '#chat',
-        headerStyle: {
-            backgroundColor: colorScheme.midlevelColor,
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
-    };
-
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            messagesPopulated: false,
+            isLoaded: false,
         }
     }
-
-
-    showSpinnerOrMessages = () => {
-        const { isLoading, chatMsgs } = this.props;
-        if (isLoading) {
-            console.log('Spinner Showing');
-            return <Text> Spinner Here </Text>
-        } else {
-            return <FlatList
-                        inverted
-                        data={chatMsgs.reverse()}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item, i }) =>
-                            <ChatMsg key={i} userName={item.userName} message={item.message} />
-                        }
-                    />
-        }
-    }
-
-    componentWillMount = () => {
-        this.props.loadChatPage();
-    };
-
 
     render() {
-
         return (
             <View style={styles.container}>
-                
-                <View style={styles.messagesContainer}>
-                    {this.showSpinnerOrMessages()}
-                </View>
 
+                <View style={styles.messagesContainer}>
+                    <Query query={ChatMessagesQuery}>
+                    
+                        {({ loading, error, data }) => {
+                            if (loading) return <Text>loading...</Text>
+                            if (error) return <Text>error!</Text>
+
+                            return data.messages.map(({ message, userName }, i) => {
+                                return (
+                                    <ChatMsg key={i} userName={userName} message={message} />
+                                )
+                            })
+                        }}
+                    </Query>
+                </View>
+                
                 <View style={styles.nav}>
                     <FooterNav navigate={this.props.navigation} />
                 </View>
-                
+               
             </View>
-        );
+        )
     }
 }
 
-const mapStateToProps = (state) => ({
-    isLoading: state.chatPageReducer.isLoading,
-    chatMsgs: state.chatPageReducer.chatMsgs,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    loadChatPage: () => dispatch({ type: actions.LOAD_CHAT_PAGE }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
+export default ChatPage;
 
 const styles = StyleSheet.create({
     container: {
@@ -88,13 +65,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-
         borderWidth: 2,
         borderColor: 'black',
     },
 
     messagesContainer: {
-
         width: '100%',
         height: '70%',
         borderWidth: 2,
