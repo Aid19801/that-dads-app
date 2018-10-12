@@ -21,13 +21,14 @@ export function* workerUserLoggingIn(actionObject) {
                 specificUser = json.filter(each => each.userName === userName)[0];
                 console.log('matched User: ', specificUser);
 
-                if (specificUser.password) {
+                if (specificUser.password === password) {
+                    console.log('unicorn | password has matched!!!!!');
                     isLoggedIn = true;
-                    console.log('setting.');
 
                     AsyncStorage.setItem('userName', userName);
                     AsyncStorage.setItem('password', password);
-                    console.log('set.');
+                    AsyncStorage.setItem('userId', specificUser._id);
+                    console.log('unicorn | spec user id: ', specificUser._id);
 
                 }
 
@@ -46,7 +47,7 @@ export function* workerUserLoggingIn(actionObject) {
     
     updateAsyncWithUserInformation(specificUser);
 
-    const { email, userId, likes, dislikes, tagline, longitude, latitude } = specificUser;
+    const { email, _id, likes, dislikes, tagline, longitude, latitude } = specificUser;
 
-    isLoggedIn ? yield put({ type: USER_LOGGED_IN, email, userName, password, userId, likes, dislikes, tagline, longitude, latitude }) : yield put({ type: USER_LOGIN_FAIL });
+    isLoggedIn ? yield put({ type: USER_LOGGED_IN, email, userName, password, userId: _id, likes, dislikes, tagline, longitude, latitude }) : yield put({ type: USER_LOGIN_FAIL });
 }

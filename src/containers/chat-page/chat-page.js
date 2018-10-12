@@ -4,10 +4,17 @@ import { StyleSheet, Text, View, TextInput, Platform, FlatList } from 'react-nat
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 import { FooterNav } from '../../components/index';
 import { ChatMsg } from './chat-msg';
 import { colorScheme } from '../../utils/colorscheme';
 import { Button } from 'react-native-elements';
+
+// userName
+// timestamp
+// message
+// userId
 
 
 const ChatMessagesQuery = gql`
@@ -38,35 +45,39 @@ class ChatPage extends Component {
     }
 
     storeMessage = (e) => {
-        console.log('storing msg: ', e);
         this.setState({
             message: e
         })
     }
 
-    submitMessage = () => {
-        const { message } = this.state;
+    // submitMessage = () => {
+    //     const { message } = this.state;
 
-        setTimeout(() => {
-            alert('state message 111 ', this.state.message);
-        }, 2000);
-    }
+    //     setTimeout(() => {
+    //         alert('state message 111 ', this.state.message);
+    //     }, 2000);
+    // }
 
     onFocus = () => {
-        console.log('hiding nav bar');
         this.setState({
             showNav: false,
         })
     }
 
     onBlur = () => {
-        console.log('showing nav bar');
         this.setState({
             showNav: true,
         })
     }
 
+
+    componentDidMount() {
+        this.props.loadChatPage();
+    }
     render() {
+
+        console.log('userName: ', this.props.userName);
+        console.log('userId: ', this.props.userId);
 
         const { message, userName } = this.state;
         return (
@@ -112,13 +123,9 @@ class ChatPage extends Component {
                                 />
                             )
                         }
-
-
-
                         </Mutation>
                     </View>
                 </View>
-
 
                 { this.state.showNav && 
                     <View style={styles.nav}>
@@ -131,7 +138,17 @@ class ChatPage extends Component {
     }
 }
 
-export default ChatPage;
+const mapStateToProps = (state) => ({
+    userName: state.loginStatusReducer.userName,
+    userId: state.loginStatusReducer.userId
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    loadChatPage: () => dispatch({ type: actions.LOAD_CHAT_PAGE }),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
 
 const styles = StyleSheet.create({
     container: {
