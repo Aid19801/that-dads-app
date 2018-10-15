@@ -1,5 +1,5 @@
 
-import { CHECK_LOGIN_STATUS, USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT } from '../actions/';
+import { CHECK_LOGIN_STATUS, USER_ALREADY_LOGGED_IN, USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT, LOAD_LOGIN_PAGE } from '../actions/';
 
 let initialState = {
     isLoggedIn: false,
@@ -17,11 +17,26 @@ let initialState = {
 
 export const loginStatusReducer = (state = initialState, action) => {
     switch (action.type) {
+        case LOAD_LOGIN_PAGE:
+            console.log('LOAD_LOGIN_PAGE');
+            return {
+                ...state
+            }
+            break;
+
         case CHECK_LOGIN_STATUS:
             console.log('CHECK_LOGIN_STATUS');
             return {
                 ...state,
                 isLoggedIn: false,
+            }
+            break;
+
+        case USER_ALREADY_LOGGED_IN:
+            console.log('USER_ALREADY_LOGGED_IN');
+            return {
+                ...state,
+                isLoggedIn: true,
             }
             break;
 
@@ -31,7 +46,7 @@ export const loginStatusReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: false,
                 isLoading: true,
-                userId: action.userName,
+                userId: action.userId,
                 password: action.password,
             }
         break;
@@ -43,16 +58,15 @@ export const loginStatusReducer = (state = initialState, action) => {
                 isLoggedIn: true,
                 isLoading: false,
 
-                password: action.password,
-                userName: action.userName,
-                email: action.email,
-                userId: action.userId,
-                likes: action.likes,
-                dislikes: action.dislikes,
-                tagline: action.tagline,
-
-                longitude: action.longitude,
-                latitude: action.latitude, 
+                password: action.userDetails.password,
+                userName: action.userDetails.userName,
+                email: action.userDetails.email,
+                userId: action.userDetails.userId,
+                likes: action.userDetails.likes,
+                dislikes: action.userDetails.dislikes,
+                tagline: action.userDetails.tagline,
+                longitude: action.userDetails.longitude,
+                latitude: action.userDetails.latitude, 
             }
             break;
 

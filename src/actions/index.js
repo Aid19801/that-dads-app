@@ -18,19 +18,21 @@ export const submitUser = (email, userName, password, likes, dislikes, tagline) 
 }
 
 // login
+export const LOAD_LOGIN_PAGE = 'LOAD_LOGIN_PAGE';
 export const CHECK_LOGIN_STATUS = 'CHECK_LOGIN_STATUS';
+export const USER_ALREADY_LOGGED_IN = 'USER_ALREADY_LOGGED_IN';
 export const USER_LOGGING_IN = 'USER_LOGGING_IN';
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 export const ASYNC_DATA_SAVED = 'ASYNC_DATA_SAVED';
 
-export const checkLoginStatus = (id) => {
-    return {
-        type: CHECK_LOGIN_STATUS,
-        id,
-    }
-}
+// export const checkLoginStatus = (id) => {
+//     return {
+//         type: CHECK_LOGIN_STATUS,
+//         id,
+//     }
+// }
 
 // news
 export const LOAD_NEWS = 'LOAD_NEWS';
