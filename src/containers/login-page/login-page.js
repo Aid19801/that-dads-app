@@ -73,7 +73,7 @@ class LoginPage extends Component {
 
                         <Button
                             title="Login"
-                            onPress={() => checkLogin(userName, password)}
+                            onPress={() => userLoggingIn(this.state.userName, this.state.password)}
                             buttonStyle={styles.button}
                         />
 
