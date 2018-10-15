@@ -86,6 +86,9 @@ const updateAsyncWithUserInformation = async (obj) => {
 
 const destroyAsyncStorage = async () => {
     try {
+        await AsyncStorage.removeItem('email', (err) => {
+            console.log('resp: ', err);
+        })
         await AsyncStorage.removeItem('userName', (err) => {
             console.log('resp: ', err);
         })
