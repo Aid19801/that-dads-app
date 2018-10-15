@@ -11,12 +11,6 @@ import { ChatMsg } from './chat-msg';
 import { colorScheme } from '../../utils/colorscheme';
 import { Button } from 'react-native-elements';
 
-// userName
-// timestamp
-// message
-// userId
-
-
 const ChatMessagesQuery = gql`
   query messages {
     messages {
@@ -27,12 +21,13 @@ const ChatMessagesQuery = gql`
 `;
 
 const CreateMessage = gql`
-  mutation CreateMessage($message: String!, $userName: String!) {
-  createMessage(userId: "131", userName: $userName, message: $message, timestamp: "107") {
+  mutation CreateMessage($userId: String!, $message: String!, $userName: String!, $timestamp: String!, ) {
+  createMessage(userId: $userId, userName: $userName, message: $message, timestamp: $timestamp) {
     _id
   }
 }
 ` 
+
 class ChatPage extends Component {
     constructor() {
         super();
@@ -40,8 +35,17 @@ class ChatPage extends Component {
             isLoaded: false,
             showNav: true,
             message: '',
-            userName: 'Aid19801'
+            userName: '',
+            userId: ''
         }
+    }
+
+    storeUserDetailsInState = () => {
+        this.setState({
+            userId: this.props.userId,
+            userName: this.props.userName,
+            timestamp: Date.now().toString(),
+        })
     }
 
     storeMessage = (e) => {
@@ -49,14 +53,6 @@ class ChatPage extends Component {
             message: e
         })
     }
-
-    // submitMessage = () => {
-    //     const { message } = this.state;
-
-    //     setTimeout(() => {
-    //         alert('state message 111 ', this.state.message);
-    //     }, 2000);
-    // }
 
     onFocus = () => {
         this.setState({
@@ -73,13 +69,13 @@ class ChatPage extends Component {
 
     componentDidMount() {
         this.props.loadChatPage();
+        this.storeUserDetailsInState();
     }
     render() {
 
-        console.log('userName: ', this.props.userName);
-        console.log('userId: ', this.props.userId);
+        console.log('unicorn| state: ', this.state);
 
-        const { message, userName } = this.state;
+        const { userId, message, userName, timestamp} = this.state;
         return (
             <View style={styles.container}>
 
@@ -117,7 +113,7 @@ class ChatPage extends Component {
                             {(createMessage, { data }) => (
                                 <Button
                                     title="submit"
-                                    onPress={() => createMessage({ variables: { message: message, userName: userName } })}
+                                    onPress={() => createMessage({ variables: { userId: userId, message: message, userName: userName, timestamp: timestamp } })}
                                     color="white"
                                     buttonStyle={styles.button}
                                 />

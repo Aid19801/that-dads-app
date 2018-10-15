@@ -8,6 +8,7 @@ import store from './src/store';
 import profilePage from './src/containers/profile-page/profile-page';
 
 import ApolloClient from "apollo-boost";
+import appContainer from './src/app-container';
 
 const client = new ApolloClient({
   uri: "https://that-dads-gql.herokuapp.com/graphql",
@@ -39,7 +40,7 @@ const RootStack = createStackNavigator(
       }
     },
     Landing: {
-      screen: LoginPage,
+      screen: LandingPage,
       navigationOptions: {
         headerLeft: null,
       }

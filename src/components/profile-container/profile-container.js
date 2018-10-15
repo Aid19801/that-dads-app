@@ -113,7 +113,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    checkLoginStatus: (userId) => dispatch({ type: CHECK_LOGIN_STATUS, userId }),
+    checkLoginStatus: () => dispatch({ type: CHECK_LOGIN_STATUS }),
     submitNewDetails: (obj) => dispatch({ type: UPDATE_USER_DETAILS, obj })
 });
 

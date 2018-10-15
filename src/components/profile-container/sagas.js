@@ -13,7 +13,6 @@ export function* workerUpdateUserDetails(actionObject) {
     const { email, password, userName } = actionObject;
     // written blind vv
     let urlToTarget = `${url}/${userId}`;
-    console.log('url to target: ', urlToTarget);
 
     try {
         yield fetch(`${url}/${userId}`, {

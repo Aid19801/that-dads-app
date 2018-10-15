@@ -8,9 +8,9 @@ const setUniqueIdentifierDB = async (uid) => {
     }
 }
 
-const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislikes, tagline, longitude, latitude) => {
+const setUserAsyncStorage = async (userId, userName, email, password, likes, dislikes, tagline, longitude, latitude) => {
     // console.log('async storage | setting userId: ', userId);
-    // console.log('async storage | setting passw: ', passw);
+    // console.log('async storage | setting password: ', password);
     // console.log('async storage | setting userName: ', userName);
     // console.log('async storage | setting email: ', email);
     // console.log('async storage | setting likes: ', likes);
@@ -24,7 +24,7 @@ const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislik
     try {
         await AsyncStorage.setItem('userId', userId);
         await AsyncStorage.setItem('userName', userName);
-        await AsyncStorage.setItem('password', passw);
+        await AsyncStorage.setItem('password', password);
         await AsyncStorage.setItem('email', email);
         await AsyncStorage.setItem('likes', likes);
         await AsyncStorage.setItem('dislikes', dislikes);
@@ -32,7 +32,7 @@ const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislik
         await AsyncStorage.setItem('longitude', longitude);
         await AsyncStorage.setItem('latitude', latitude);
 
-        console.log('Async Storage | all items set correctly');
+        console.log('Async Storage | all items set correctly: ', password);
         return true;
     } catch (error) {
         console.log('setUserId error: ', error);
@@ -40,6 +40,31 @@ const setUserAsyncStorage = async (userId, userName, email, passw, likes, dislik
     }
 };
 
+
+const getUserAsyncStorage = async () => {
+    let uid = await AsyncStorage.getItem('userId');
+    let un = await AsyncStorage.getItem('userName');
+    let em = await AsyncStorage.getItem('email');
+    let pw = await AsyncStorage.getItem('password');
+    let likes = await AsyncStorage.getItem('likes');
+    let disl = await AsyncStorage.getItem('dislikes');
+    let tag = await AsyncStorage.getItem('tagline');
+    let long = await AsyncStorage.getItem('longitude');
+    let lat = await AsyncStorage.getItem('latitude');
+
+    
+    return { 
+        userId: uid,
+        userName: un,
+        email: em,
+        password: pw,
+        likes: likes,
+        dislikes: disl,
+        tagline: tag,
+        longitude: long,
+        latitude: lat,
+    }
+}
 const updateAsyncWithUserInformation = async (obj) => {
     try {
         await AsyncStorage.setItem('userId', obj._id);
@@ -57,26 +82,6 @@ const updateAsyncWithUserInformation = async (obj) => {
     } catch(err) {
         console.log('async await fail: ', err);
     }
-}
-
-const getUserAsyncStorage = async () => {
-        try {
-            let email = await AsyncStorage.getItem('email');
-            let password = await AsyncStorage.getItem('password');
-            let userId = await AsyncStorage.getItem('userId');
-            let userName = await AsyncStorage.getItem('userName');
-            let likes = await AsyncStorage.getItem('likes');
-            let dislikes = await AsyncStorage.getItem('dislikes');
-            let tagline = await AsyncStorage.getItem('tagline');
-            let longitude = await AsyncStorage.getItem('longitude');
-            let latitude = await AsyncStorage.getItem('latitude');
-
-            console.log('Async Storage | all items retrieved correctly: ', userName);
-            return { email, password, userId, userName, likes, dislikes, tagline, longitude, latitude };
-
-        } catch (err) {
-            console.log('getUserAsyncStorage err: ', err);
-        }
 }
 
 const destroyAsyncStorage = async () => {
@@ -119,11 +124,11 @@ const refreshUserLocation = async () => {
 
 
 export {
-    destroyAsyncStorage,
     getUserAsyncStorage,
+
+    destroyAsyncStorage,
     setUserAsyncStorage,
     setUniqueIdentifierDB,
     refreshUserLocation,
-
     updateAsyncWithUserInformation,
 }

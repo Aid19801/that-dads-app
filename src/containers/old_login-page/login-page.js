@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Platform, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Platform, AsyncStorage } from 'react-native';
+
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { USER_LOGGING_IN, LOAD_LOGIN_PAGE } from '../../actions/index';
+import { connect } from 'react-redux';
+
 import { getUserAsyncStorage } from '../../utils/utils';
 import { colorScheme } from '../../utils/colorscheme';
-import { connect } from 'react-redux';
-import { CHECK_LOGIN_STATUS, USER_LOGGING_IN } from '../../actions/index';
-import { Button } from 'react-native-elements';
 
-// page loads > CWM checks login status > fires CHECK_LOGIN_STATUS action
-// 
 class LoginPage extends Component {
     constructor(props) {
         super(props);
@@ -17,54 +19,45 @@ class LoginPage extends Component {
         }
     }
 
-    renderLoginAndPasswordFields = (isLoggedIn) => {
+    componentDidMount = async () => {
+        this.props.loadLoginPage();
+        const { userName, password } = await getUserAsyncStorage();
+        console.log('username from asyncStorage: ', userName);
+        this.setState({ userName, password });
+    }
 
-        const { userLoggingIn, userName, password } = this.props;
+    componentWillReceiveProps = (nextProps) => {
+
+        console.log('username from CWRP nextProps: ', nextProps.userName);
+        if (nextProps.isLoggedIn) {
+            nextProps.navigation.navigate('Home');
+        }
+    }
+    
+    render() {
+
+        const { userName, password } = this.state;
+        const { checkLogin, isLoading, isLoggedIn } = this.props;
+
+        console.log('is logged in?', isLoggedIn);
+
         if (isLoggedIn) {
-            return (
-                <View>
-                    <Text>userId: {this.props.userId}</Text>
 
+            console.log('User is logged in: ', userName);
+            return (
+
+                <View style={styles.container}>
                     <View style={styles.inputAndButtonContainer}>
                         <TextInput
                             placeholder="username"
-                            value={this.props.userName}
+                            value={userName}
                             underlineColorAndroid="rgba(0,0,0,0)"
                             style={styles.textInput}
                             onChangeText={(e) => this.setState({ userName: e })}
                         />
                         <TextInput
                             placeholder="password"
-                            value={this.props.password}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            secureTextEntry={true}
-                            style={styles.textInput}
-                            onChangeText={(e) => this.setState({ password: e })}
-                        />
-
-                        <Button
-                            title="Login"
-                            onPress={() => userLoggingIn(userName, password)}
-                            buttonStyle={styles.button}
-                        />
-
-                    </View>
-                </View>
-            )
-        } else if (!isLoggedIn) {
-            return (
-                <View>
-                    <Text>userId: not logged in</Text>
-
-                    <View style={styles.inputAndButtonContainer}>
-                        <TextInput
-                            placeholder="username"
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            style={styles.textInput}
-                            onChangeText={(e) => this.setState({ userName: e })}
-                        />
-                        <TextInput
-                            placeholder="password"
+                            value={password}
                             underlineColorAndroid="rgba(0,0,0,0)"
                             secureTextEntry={true}
                             style={styles.textInput}
@@ -77,51 +70,64 @@ class LoginPage extends Component {
                             buttonStyle={styles.button}
                         />
 
+                        {isLoading && <Text style={styles.isLoading}>Loading...</Text>}
                     </View>
+
                 </View>
             )
+        } else {
+            return (
+                <View style={styles.container}>
+
+                    <View style={styles.inputAndButtonContainer}>
+                        <TextInput
+                            placeholder="username"
+                            underlineColorAndroid="rgba(0,0,0,0)"
+                            style={styles.textInput}
+                            onChangeText={(e) => this.setState({ userName: e })}
+                        />
+                        <TextInput
+                            placeholder="password"
+                            underlineColorAndroid="rgba(0,0,0,0)"
+                            secureTextEntry={true}
+                            style={styles.textInput}
+                            onChangeText={(e) => this.setState({ password: e })}
+                        />
+
+                        <Button 
+                            title="Login"
+                            onPress={() => checkLogin(userName, password)}
+                            buttonStyle={styles.button}
+                        />
+
+                        { isLoading && <Text style={styles.isLoading}>Loading...</Text> }
+                    </View>
+
+                </View>
+            );
         }
-    }
-
-    componentDidMount = async () => {
-        this.props.checkLoginStatus();
-    }
-
-    componentWillReceiveProps = (nextProps) => {
-        const { userName, password } = nextProps;
-        this.setState({ userName, password });   
-    }
-
-    render() {
-
-        const { isLoggedIn } = this.props;
-
-        return (
-
-            <View style={styles.container}>
-                {this.renderLoginAndPasswordFields(isLoggedIn)}
-            </View>
-        )
     }
 }
 
+
+
 const mapStateToProps = (state) => ({
     isLoggedIn: state.loginStatusReducer.isLoggedIn,
-    userName: state.loginStatusReducer.userName,
-    password: state.loginStatusReducer.password,
-    userId: state.loginStatusReducer.userId,
-})
+    isLoading: state.loginStatusReducer.isLoading,
+});
+
 const mapDispatchToProps = (dispatch) => ({
-    checkLoginStatus: () => dispatch({ type: CHECK_LOGIN_STATUS }),
-    userLoggingIn: (userName, password) => dispatch({ type: USER_LOGGING_IN, userName, password })
+    loadLoginPage: () => dispatch({ type: LOAD_LOGIN_PAGE }),
+    checkIfUserIsLoggedIn: () => dispatch({ type: CHECK_LOGIN_STATUS })
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        borderColor: 'white',
+        borderColor: 'white', 
         borderWidth: 2,
     },
     inputAndButtonContainer: {
