@@ -85,11 +85,13 @@ class LoginPage extends Component {
 
     componentDidMount = async () => {
         this.props.checkLoginStatus();
+        console.log('ALL PROPS: ', this.props);
     }
 
     componentWillReceiveProps = (nextProps) => {
-        const { userName, password } = nextProps;
-        this.setState({ userName, password });   
+        const { userName, password, isLoggedIn, navigation } = nextProps;
+        this.setState({ userName, password });
+        isLoggedIn ? navigation.navigate('Home') : null;
     }
 
     render() {
