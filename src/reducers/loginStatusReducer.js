@@ -61,7 +61,7 @@ export const loginStatusReducer = (state = initialState, action) => {
                 password: action.userDetails.password,
                 userName: action.userDetails.userName,
                 email: action.userDetails.email,
-                userId: action.userDetails.userId,
+                userId: action.userDetails._id,
                 likes: action.userDetails.likes,
                 dislikes: action.userDetails.dislikes,
                 tagline: action.userDetails.tagline,
