@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Platform, FlatList } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, TextInput, Platform, FlatList, YellowBox } from 'react-native';
+
 
 import { Query, Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import * as gqlActions from './gql';
 
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import { FooterNav } from '../../components/index';
+import { FooterNav, LoadingSpinner } from '../../components/';
 import { ChatMsg } from './chat-msg';
 import { colorScheme } from '../../utils/colorscheme';
 import { Button } from 'react-native-elements';
+// import { mockMessages } from '../../mocks/msgs';
 
-const ChatMessagesQuery = gql`
-  query messages {
-    messages {
-      message
-      userName
-    }
-  }
-`;
-
-const CreateMessage = gql`
-  mutation CreateMessage($userId: String!, $message: String!, $userName: String!, $timestamp: String!, ) {
-  createMessage(userId: $userId, userName: $userName, message: $message, timestamp: $timestamp) {
-    _id
-  }
-}
-` 
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
 
 class ChatPage extends Component {
     constructor() {
@@ -73,17 +60,21 @@ class ChatPage extends Component {
     }
     render() {
 
-        console.log('unicorn| state: ', this.state);
+        console.log('chatPage | state: ', this.state);
 
-        const { userId, message, userName, timestamp} = this.state;
+        const { userId, message, userName, timestamp } = this.state;
         return (
             <View style={styles.container}>
 
                 <View style={styles.messagesContainer}>
-                    <Query query={ChatMessagesQuery}>
+                    <Query query={gqlActions.ChatMessagesQuery}>
                     
                         {({ loading, error, data }) => {
-                            if (loading) return <Text>loading...</Text>
+                            if (loading) return (
+                                <View style={styles.spinnerContainer}>
+                                    <ActivityIndicator size="large" color="#0000ff" />
+                                </View>
+                            )
                             if (error) return <Text>error!</Text>
 
                             return <FlatList
@@ -108,7 +99,7 @@ class ChatPage extends Component {
                         />
                     <View style={styles.buttonContainer}>
 
-                        <Mutation mutation={CreateMessage}>
+                        <Mutation mutation={gqlActions.CreateMessage}>
 
                             {(createMessage, { data }) => (
                                 <Button
@@ -136,7 +127,7 @@ class ChatPage extends Component {
 
 const mapStateToProps = (state) => ({
     userName: state.loginStatusReducer.userName,
-    userId: state.loginStatusReducer.userId
+    userId: state.loginStatusReducer.userId,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -156,7 +147,10 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'black',
     },
-
+    spinnerContainer: {
+        flex: 1,
+        justifyContent: 'center',
+    },
     messagesContainer: {
         width: '100%',
         height: '70%',
@@ -184,7 +178,6 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 5
     },
-
     nav: {
         width: '100%',
         height: '11%',

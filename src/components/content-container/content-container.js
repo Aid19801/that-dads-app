@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, StyleSheet, FlatList } from 'react-native';
+import { Text, View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { ContentBox } from '../index';
 import mocks from '../../mocks/mock-news';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -21,12 +21,9 @@ class ContentContainer extends Component {
         if (this.props.isLoading) {
             return (
                 <View style={styles.container}>
-                    <Text style={{ marginTop: 90 }}>Loading News...</Text>
-                    <Icon
-                        name={'access-time'}
-                        size={85}
-                        color='white'
-                    />
+                    <View style={styles.spinnerContainer}>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    </View>
                 </View>
             )
         } else {
@@ -70,5 +67,9 @@ const styles = StyleSheet.create({
         width: '95%',
         borderColor: 'grey',
         alignItems: 'center',
+    },
+    spinnerContainer: {
+        flex: 1,
+        justifyContent: 'center',
     },
 });

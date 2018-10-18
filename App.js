@@ -40,7 +40,7 @@ const RootStack = createStackNavigator(
       }
     },
     Landing: {
-      screen: LandingPage,
+      screen: ChatPage,
       navigationOptions: {
         headerLeft: null,
       }
